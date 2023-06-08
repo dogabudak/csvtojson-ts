@@ -8,11 +8,10 @@
 - rollup
 - typedoc
 - remove deprecated things
-- refactor stuff
+- refactor stuff ********
 - yarn test is not working
 - Parameters.ts description vardi onlari readmeye at
--   "typings": "./typings.d.ts", in package json
-- ignore covarage and .nyc_outpput
+- "typings": "./typings.d.ts", in package json
 
 each is one task
 

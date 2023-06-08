@@ -18,7 +18,6 @@
 - Easy to use API
 
 ```ts
-// v1
 import { csv } from "csvtojson-ts";
 ```
 
@@ -29,10 +28,6 @@ import { csv } from "csvtojson-ts";
 - [Browser Usage](#browser-usage)
 - [Contribution](#contribution)
 
-# Quick Start
-
-- [As Library](#library)
-- [As Command Line Tool](#command-line-usage)
 
 ## Library
 

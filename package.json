@@ -29,6 +29,7 @@
     "@types/mocha": "^9.1",
     "@types/node": "^18.7",
     "@types/sinon": "^10.0.13",
+    "@types/strip-bom": "^4.0.1",
     "@types/wtfnode": "^0.7",
     "@typescript-eslint/eslint-plugin": "^5.36",
     "@typescript-eslint/parser": "^5.36",

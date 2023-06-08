@@ -1,10 +1,10 @@
 import csv from "../../src";
 import assert from "assert";
-import sinon from "sinon";
+import sinon, {SinonSandbox} from "sinon";
 import fs from "fs";
 import CSVError from "../../src/CSVError";
 describe("testCSVConverter3", function () {
-  let sandbox;
+  let sandbox: SinonSandbox;
   afterEach(function () {
     sandbox.restore();
   });
@@ -69,8 +69,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("emit file not exists error when try to open a non-exists file", function () {
-    let called = false;
-    const cb = sb.spy((err) => {
+    const cb = sandbox.spy((err: Function) => {
       assert(err.toString().indexOf("File does not exist") > -1);
     });
     return csv()
@@ -81,7 +80,7 @@ describe("testCSVConverter3", function () {
         () => {
           assert(false);
         },
-        (err) => {
+        () => {
           assert.equal(cb.callCount, 1);
         }
       );

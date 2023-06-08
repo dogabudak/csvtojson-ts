@@ -3,7 +3,7 @@ import { Converter } from "../../src/Converter";
 const assert = require("assert");
 
 describe("Test delimiters", function () {
-  const getDelimiter = (str, opt: { delimiter: string | string[] }): string => {
+  const getDelimiter = (str: string, opt: { delimiter: string | string[] }): string => {
     return RowSplit.prototype["getDelimiter"].call(
       {
         conv: {
@@ -74,7 +74,7 @@ describe("ParseMultiLine function", function () {
 
 describe("RowSplit.parse function", function () {
   const rowSplit = new RowSplit(new Converter());
-  const func = (str): RowSplitResult => {
+  const func = (str: string): RowSplitResult => {
     return rowSplit.parse(str);
   };
   it("should split complete csv line", function () {

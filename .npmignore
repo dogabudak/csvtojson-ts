@@ -18,3 +18,5 @@ graph.png
 docs
 devops
 coverage
+.nyc_output
+.idea/

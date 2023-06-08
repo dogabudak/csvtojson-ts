@@ -1,3 +1,4 @@
+import { access, constants, createReadStream } from 'node:fs';
 import { Transform, TransformOptions, Readable } from "stream";
 import { CSVParseParam, mergeParams } from "./Parameters";
 import { ParseRuntime, initParseRuntime } from "./ParseRuntime";
@@ -31,17 +32,16 @@ export class Converter extends Transform implements PromiseLike<any[]> {
     filePath: string,
     options?: string | CreateReadStreamOption | undefined
   ): Converter {
-    const fs = require("fs");
-    fs.exists(filePath, (exist) => {
-      if (exist) {
-        const rs = fs.createReadStream(filePath, options);
+    access(filePath, constants.F_OK, (err) => {
+      if (!err) {
+        const rs = createReadStream(filePath, options);
         rs.pipe(this);
       } else {
         this.emit(
-          "error",
-          new Error(
-            `File does not exist at ${filePath}. Check to make sure the file path to your csv is correct.`
-          )
+            "error",
+            new Error(
+                `File does not exist at ${filePath}. Check to make sure the file path to your csv is correct.`
+            )
         );
       }
     });
@@ -160,13 +160,10 @@ export class Converter extends Transform implements PromiseLike<any[]> {
         }
       );
   }
-  private processEnd(cb) {
+  private processEnd(cb: Function) {
     this.result.endProcess();
     this.emit("done");
     cb();
-  }
-  get parsedLineNumber(): number {
-    return this.runtime.parsedLineNumber;
   }
 }
 export interface CreateReadStreamOption {
@@ -179,7 +176,6 @@ export interface CreateReadStreamOption {
   end?: number;
   highWaterMark?: number;
 }
-export type CallBack = (err: Error, data: Array<any>) => void;
 export type PreFileLineCallback = (
   line: string,
   lineNumber: number

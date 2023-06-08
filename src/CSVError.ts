@@ -5,7 +5,7 @@ export default class CSVError extends Error {
   static unclosed_quote(index: number, extra?: string) {
     return new CSVError("unclosed_quote", index, extra);
   }
-  static fromJSON(obj) {
+  static fromJSON(obj: any) {
     return new CSVError(obj.err, obj.line, obj.extra);
   }
   constructor(public err: string, public line: number, public extra?: string) {

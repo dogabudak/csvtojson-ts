@@ -3,6 +3,10 @@ import csv from "../../src";
 import sinon, {SinonSandbox} from "sinon";
 import assert from "assert";
 import fs from "fs";
+import path from "path";
+
+const dataDir = path.resolve(path.dirname(__filename), "../");
+
 describe("testCSVConverter2", function () {
   let sandbox: SinonSandbox;
   afterEach(function () {
@@ -13,7 +17,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should convert from large csv string", function (done) {
-    const csvStr = fs.readFileSync(__dirname + "/data/large-csv-sample.csv", "utf8");
+    const csvStr = fs.readFileSync(dataDir + "/data/large-csv-sample.csv", "utf8");
     const conv = new Converter({});
     conv.fromString(csvStr).then(function (res) {
       assert(res.length === 5290);
@@ -22,7 +26,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should set eol", function (done) {
-    const rs = fs.createReadStream(__dirname + "/data/large-csv-sample.csv");
+    const rs = fs.createReadStream(dataDir + "/data/large-csv-sample.csv");
     const conv = new Converter({
       eol: "\n"
     });
@@ -45,7 +49,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should convert tsv String", function (done) {
-    const tsv = __dirname + "/data/dataTsv";
+    const tsv = dataDir + "/data/dataTsv";
     const csvStr = fs.readFileSync(tsv, "utf8");
     const conv = new Converter({
       delimiter: "\t",
@@ -59,7 +63,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should allow customised header with nohead csv string.", function (done) {
-    const testData = __dirname + "/data/noheadercsv";
+    const testData = dataDir + "/data/noheadercsv";
     const rs = fs.readFileSync(testData, "utf8");
     const conv = new Converter({
       noheader: true,
@@ -73,7 +77,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should parse fromFile", function (done) {
-    const csvFile = __dirname + "/data/large-csv-sample.csv";
+    const csvFile = dataDir + "/data/large-csv-sample.csv";
     const conv = new Converter({});
     conv.fromFile(csvFile).then(function (res) {
       assert.equal(res.length, 5290);
@@ -82,7 +86,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should parse fromFile with encoding option", function (done) {
-    const csvFile = __dirname + "/data/dataWithLatin1Encoding";
+    const csvFile = dataDir + "/data/dataWithLatin1Encoding";
     const conv = new Converter({});
     conv.fromFile(csvFile, { encoding: "latin1" }).then(function (json) {
       assert.equal(json[0].Name, "bébé");
@@ -91,7 +95,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should fromFile should emit error", function (done) {
-    const csvFile = __dirname + "/data/dataWithUnclosedQuotes";
+    const csvFile = dataDir + "/data/dataWithUnclosedQuotes";
     const conv = new Converter({});
     conv.fromFile(csvFile).then(
       function (res) {
@@ -105,7 +109,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should parse no header with dynamic column number", function (done) {
-    const testData = __dirname + "/data/noheaderWithVaryColumnNum";
+    const testData = dataDir + "/data/noheaderWithVaryColumnNum";
     const rs = fs.readFileSync(testData, "utf8");
     const conv = new Converter({
       noheader: true
@@ -118,7 +122,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should parse tabsv data with dynamic columns", function (done) {
-    const testData = __dirname + "/data/tabsv";
+    const testData = dataDir + "/data/tabsv";
     const rs = fs.readFileSync(testData, "utf8");
     const conv = new Converter({
       delimiter: "\t"
@@ -130,7 +134,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should use first line break as eol", function (done) {
-    const testData = __dirname + "/data/testEol";
+    const testData = dataDir + "/data/testEol";
     const conv = new Converter({
       noheader: true
     });
@@ -141,7 +145,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should detect delimiter", function (done) {
-    const testData = __dirname + "/data/dataWithAutoDelimiter";
+    const testData = dataDir + "/data/dataWithAutoDelimiter";
     const rs = fs.createReadStream(testData);
     const conv = new Converter({ delimiter: "auto" });
     conv.then(function (res) {
@@ -153,7 +157,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should emit delimiter event", function (done) {
-    const testData = __dirname + "/data/dataWithAutoDelimiter";
+    const testData = dataDir + "/data/dataWithAutoDelimiter";
     const rs = fs.createReadStream(testData);
     const conv = new Converter({ delimiter: "auto" });
     const delimiterCallback = sandbox.spy(function (delimiter) {
@@ -168,7 +172,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should emit delimiter event when no header", function (done) {
-    const testData = __dirname + "/data/dataWithAutoDelimiter";
+    const testData = dataDir + "/data/dataWithAutoDelimiter";
     const rs = fs.createReadStream(testData);
     const conv = new Converter({ delimiter: "auto", noheader: true });
     const delimiterCallback = sandbox.spy(function (delimiter) {
@@ -182,7 +186,7 @@ describe("testCSVConverter2", function () {
     rs.pipe(conv);
   });
   it("should stripe out whitespaces if trim is true", function (done) {
-    const testData = __dirname + "/data/dataWithWhiteSpace";
+    const testData = dataDir + "/data/dataWithWhiteSpace";
     const rs = fs.createReadStream(testData);
     const conv = new Converter({ trim: true });
     conv.then(function (res) {
@@ -194,7 +198,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should convert triple quotes correctly", function (done) {
-    const testData = __dirname + "/data/dataWithTripleQoutes";
+    const testData = dataDir + "/data/dataWithTripleQoutes";
     const rs = fs.createReadStream(testData);
     const conv = new Converter({ trim: true });
     conv.then(function (res) {
@@ -207,7 +211,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should pre process raw data in the line", function (done) {
-    const testData = __dirname + "/data/quoteTolerant";
+    const testData = dataDir + "/data/quoteTolerant";
     const rs = fs.createReadStream(testData);
     const conv = new Converter();
     conv.preRawData(function (d) {
@@ -221,7 +225,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should pre process by line in the line", function (done) {
-    const testData = __dirname + "/data/quoteTolerant";
+    const testData = dataDir + "/data/quoteTolerant";
     const rs = fs.createReadStream(testData);
     const conv = new Converter();
     conv.preFileLine(function (line, lineNumber) {
@@ -239,7 +243,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should support object mode", function (done) {
-    const testData = __dirname + "/data/complexJSONCSV";
+    const testData = dataDir + "/data/complexJSONCSV";
     const rs = fs.createReadStream(testData);
     const conv = new Converter(
       {},
@@ -281,7 +285,7 @@ describe("testCSVConverter2", function () {
       checkType: true
     });
 
-    const testData = __dirname + "/data/dataWithSlashEscape";
+    const testData = dataDir + "/data/dataWithSlashEscape";
     const rs = fs.createReadStream(testData);
     test_converter.then(function (res) {
       assert.equal(res[0].raw.hello, "world");
@@ -296,7 +300,7 @@ describe("testCSVConverter2", function () {
       escape: "\\"
     });
 
-    const testData = __dirname + "/data/dataWithSlashEscapeAndDelimiterBetweenQuotes";
+    const testData = dataDir + "/data/dataWithSlashEscapeAndDelimiterBetweenQuotes";
     const rs = fs.createReadStream(testData);
     test_converter.then(function (res) {
       assert.equal(res[0].raw, '"hello,"world"');
@@ -317,7 +321,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should parse from stream", function (done) {
-    const testData = __dirname + "/data/complexJSONCSV";
+    const testData = dataDir + "/data/complexJSONCSV";
     const rs = fs.createReadStream(testData);
     csv()
       .fromStream(rs)
@@ -328,7 +332,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should set output as csv", function (done) {
-    const testData = __dirname + "/data/complexJSONCSV";
+    const testData = dataDir + "/data/complexJSONCSV";
     const rs = fs.createReadStream(testData);
     let numOfRow = 0;
     csv({ output: "csv" })
@@ -348,7 +352,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should transform with subscribe function", function (done) {
-    const testData = __dirname + "/data/complexJSONCSV";
+    const testData = dataDir + "/data/complexJSONCSV";
     const rs = fs.createReadStream(testData);
     csv()
       .fromStream(rs)
@@ -367,7 +371,7 @@ describe("testCSVConverter2", function () {
 
   it("should parse a complex JSON", function (done) {
     const converter = new Converter({ checkType: true });
-    const r = fs.createReadStream(__dirname + "/data/complexJSONCSV");
+    const r = fs.createReadStream(dataDir + "/data/complexJSONCSV");
     converter.then(function (res) {
       assert(res);
       assert(res.length === 2);
@@ -420,7 +424,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should process long header", function (done) {
-    const testData = __dirname + "/data/longHeader";
+    const testData = dataDir + "/data/longHeader";
     const rs = fs.createReadStream(testData, { highWaterMark: 100 });
     let numOfJson = 0;
     csv({}, { highWaterMark: 100 })
@@ -437,7 +441,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should parse #139", function (done) {
-    const rs = fs.createReadStream(__dirname + "/data/data#139");
+    const rs = fs.createReadStream(dataDir + "/data/data#139");
     csv()
       .fromStream(rs)
       .then(function (res) {
@@ -447,7 +451,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should ignore column", function (done) {
-    const rs = fs.createReadStream(__dirname + "/data/dataWithQoutes");
+    const rs = fs.createReadStream(dataDir + "/data/dataWithQoutes");
     let headerEmitted = false;
     csv({
       ignoreColumns: /TIMESTAMP/
@@ -484,7 +488,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should include column", function (done) {
-    const rs = fs.createReadStream(__dirname + "/data/dataWithQoutes");
+    const rs = fs.createReadStream(dataDir + "/data/dataWithQoutes");
     csv({
       includeColumns: /TIMESTAMP/
     })
@@ -508,7 +512,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should allow headers and include columns to be given as reference to the same const", function (done) {
-    const rs = fs.createReadStream(__dirname + "/data/complexJSONCSV");
+    const rs = fs.createReadStream(dataDir + "/data/complexJSONCSV");
     const headers = ["first", "second", "third"];
 
     const expected = headers;
@@ -536,7 +540,7 @@ describe("testCSVConverter2", function () {
   });
 
   it("should leave provided params objects unmutated", function () {
-    const rs = fs.createReadStream(__dirname + "/data/complexJSONCSV");
+    const rs = fs.createReadStream(dataDir + "/data/complexJSONCSV");
     const includeColumns = ["fieldA.title", "description"];
 
     return csv({

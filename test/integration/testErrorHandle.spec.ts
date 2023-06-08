@@ -1,12 +1,14 @@
 import { Converter } from "../../src/Converter";
 import CSVError from "../../src/CSVError";
-var assert = require("assert");
-var fs = require("fs");
+import assert from 'assert'
+import fs from 'fs'
+import path from "path";
+const dir = path.resolve(path.dirname(__filename), "../");
 
 describe("Converter error handling", function () {
   it("should handle quote not closed", function (done) {
-    var rs = fs.createReadStream(__dirname + "/data/dataWithUnclosedQuotes");
-    var conv = new Converter({});
+    const rs = fs.createReadStream(dir + "/data/dataWithUnclosedQuotes");
+    const conv = new Converter({});
     conv.on("error", function (err: CSVError) {
       assert(err.err === "unclosed_quote");
       done();
@@ -15,16 +17,15 @@ describe("Converter error handling", function () {
   });
 
   it("should handle column number mismatched error", function (done) {
-    var rs = fs.createReadStream(__dirname + "/data/dataWithMismatchedColumn");
-    var conv = new Converter({
+    const rs = fs.createReadStream(dir + "/data/dataWithMismatchedColumn");
+    const conv = new Converter({
       checkColumn: true
     });
-    var tested = false;
+    let tested = false;
     conv.on("error", function (err: CSVError) {
-      if (tested === false) {
+      if (!tested) {
         assert(err.err === "column_mismatched");
         tested = true;
-        // done();
       }
     });
     conv.on("done", function () {
@@ -35,14 +36,14 @@ describe("Converter error handling", function () {
   });
 
   it("should treat quote not closed as column_mismatched when alwaysSplitAtEOL is true", function (done) {
-    var rs = fs.createReadStream(__dirname + "/data/dataWithUnclosedQuotes");
-    var conv = new Converter({
+    const rs = fs.createReadStream(dir + "/data/dataWithUnclosedQuotes");
+    const conv = new Converter({
       checkColumn: true,
       alwaysSplitAtEOL: true
     });
-    var tested = false;
+    let tested = false;
     conv.on("error", function (err: CSVError) {
-      if (tested === false) {
+      if (!tested) {
         assert(err.err === "column_mismatched");
         tested = true;
       }

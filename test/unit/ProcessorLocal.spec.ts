@@ -4,7 +4,8 @@ import { readFileSync } from "fs";
 import path from "path";
 import assert from "assert";
 import { JSONResult } from "../../src/lineToJson";
-const dataDir = path.join(__dirname, "../test/data/");
+const dataDir = path.resolve(path.dirname(__filename), "../data");
+
 describe("ProcessLocal", () => {
   it("should process csv chunks and output json", async function () {
     const processor = new ProcessorLocal(new Converter());

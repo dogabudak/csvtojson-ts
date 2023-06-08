@@ -3,6 +3,10 @@ import assert from "assert";
 import sinon, {SinonSandbox} from "sinon";
 import fs from "fs";
 import CSVError from "../../src/CSVError";
+import path from "path";
+
+const dir = path.resolve(path.dirname(__filename), "../");
+
 describe("testCSVConverter3", function () {
   let sandbox: SinonSandbox;
   afterEach(function () {
@@ -13,7 +17,7 @@ describe("testCSVConverter3", function () {
   });
 
   it("should parse large csv file with UTF-8 without spliting characters", function (done) {
-    var testData = __dirname + "/data/large-utf8.csv";
+    var testData = dir + "/data/large-utf8.csv";
     var rs = fs.createReadStream(testData);
     var csvConverter = csv({});
     var count = 0;
@@ -44,7 +48,7 @@ describe("testCSVConverter3", function () {
         }
       }
     })
-      .fromFile(__dirname + "/data/dataWithType")
+      .fromFile(dir + "/data/dataWithType")
       .subscribe(function (json) {
         assert.equal(typeof json.column1, "string");
         assert.equal(json.column5, "hello world");
@@ -60,7 +64,7 @@ describe("testCSVConverter3", function () {
       quote: "|",
       output: "csv"
     })
-      .fromFile(__dirname + "/data/pipeAsQuote")
+      .fromFile(dir + "/data/pipeAsQuote")
       .subscribe(function (csv) {
         assert.equal(csv[2], "blahhh, blah");
       })
@@ -154,7 +158,7 @@ describe("testCSVConverter3", function () {
   });
   it("should propagate error to next then", () => {
     return csv({ trim: true })
-      .fromFile(__dirname + "/data/dataWithUnclosedQuotes")
+      .fromFile(dir + "/data/dataWithUnclosedQuotes")
       .then(undefined, undefined)
       .then(
         () => {
@@ -247,7 +251,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should parse header with quotes correctly", function () {
-    var testData = __dirname + "/data/csvWithUnclosedHeader";
+    var testData = dir + "/data/csvWithUnclosedHeader";
     return csv({
       headers: [
         "exam_date",

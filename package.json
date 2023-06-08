@@ -110,6 +110,7 @@
     "nodemon": "^2.0",
     "qs": "^6.11",
     "sift": "^16.0",
+    "strip-bom": "^5.0.0",
     "superstruct": "^0.16",
     "ts-node": "^10.9",
     "tsconfig-paths": "^4.1",

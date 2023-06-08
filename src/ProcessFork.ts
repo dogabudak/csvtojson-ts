@@ -9,7 +9,7 @@ export class ProcessorFork extends Processor {
     return new Promise((resolve, reject) => {
       this.finalChunk = true;
       this.next = resolve;
-      this.childProcess.stdin.end();
+      this.childProcess.stdin?.end();
     });
   }
   destroy(): Promise<void> {
@@ -71,13 +71,13 @@ export class ProcessorFork extends Processor {
       } else if (msg.cmd === "done") {
       }
     });
-    this.childProcess.stdout.on("data", (data) => {
+    this.childProcess.stdout?.on("data", (data) => {
       // console.log("stdout", data.toString());
       const res = data.toString();
       // console.log(res);
       this.appendBuf(res);
     });
-    this.childProcess.stderr.on("data", (data) => {
+    this.childProcess.stderr?.on("data", (data) => {
       // console.log("stderr", data.toString());
       this.converter.emit("error", CSVError.fromJSON(JSON.parse(data.toString())));
     });
@@ -92,7 +92,6 @@ export class ProcessorFork extends Processor {
   private appendBuf(data: string) {
     const res = this.leftChunk + data;
     const list = res.split("\n");
-    let counter = 0;
     const lastBit = list[list.length - 1];
     if (lastBit !== "") {
       this.leftChunk = list.pop() || "";
@@ -103,9 +102,9 @@ export class ProcessorFork extends Processor {
   }
 
   process(chunk: Buffer): Promise<ProcessLineResult[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.next = resolve;
-      this.childProcess.stdin.write(chunk, () => {
+      this.childProcess.stdin?.write(chunk, () => {
         this.flushResult();
       });
     });

@@ -98,7 +98,7 @@ describe("testCSVConverter2", function () {
     const csvFile = dataDir + "/data/dataWithUnclosedQuotes";
     const conv = new Converter({});
     conv.fromFile(csvFile).then(
-      function (res) {
+      function () {
         done();
       },
       function (err) {

@@ -8,8 +8,7 @@ export function bufFromString(str: string): Buffer {
 }
 
 export function emptyBuffer(): Buffer {
-  const buffer = Buffer.allocUnsafe ? Buffer.allocUnsafe(0) : new Buffer(0);
-  return buffer;
+  return Buffer.allocUnsafe ? Buffer.allocUnsafe(0) : new Buffer(0);
 }
 
 export function filterArray(arr: any[], filter: number[]): any[] {

@@ -1,4 +1,4 @@
-import { access, constants, createReadStream } from 'node:fs';
+import { access, constants, createReadStream } from "node:fs";
 import { Transform, TransformOptions, Readable } from "stream";
 import { CSVParseParam, mergeParams } from "./Parameters";
 import { ParseRuntime, initParseRuntime } from "./ParseRuntime";
@@ -39,10 +39,10 @@ export class Converter extends Transform implements PromiseLike<any[]> {
         rs.pipe(this);
       } else {
         this.emit(
-            "error",
-            new Error(
-                `File does not exist at ${filePath}. Check to make sure the file path to your csv is correct.`
-            )
+          "error",
+          new Error(
+            `File does not exist at ${filePath}. Check to make sure the file path to your csv is correct.`
+          )
         );
       }
     });

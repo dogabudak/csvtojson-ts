@@ -72,7 +72,10 @@ export class ProcessorLocal extends Processor {
         }
       });
   }
-  private processCSV(csv: string, finalChunk: boolean): Promise<ProcessLineResult[]> {
+  private processCSV(
+    csv: string,
+    finalChunk: boolean
+  ): Promise<ProcessLineResult[]> {
     const params = this.params;
     const runtime = this.runtime;
     if (!runtime.eol) {

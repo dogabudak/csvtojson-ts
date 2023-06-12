@@ -1,6 +1,6 @@
 import { Converter } from "../../src/Converter";
 import csv from "../../src";
-import sinon, {SinonSandbox} from "sinon";
+import sinon, { SinonSandbox } from "sinon";
 import assert from "assert";
 import fs from "fs";
 import path from "path";

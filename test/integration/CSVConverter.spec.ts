@@ -2,17 +2,17 @@ import { Converter } from "../../src/Converter";
 import csv from "../../src";
 import assert from "assert";
 import fs from "fs";
-import sinon, {SinonSandbox} from "sinon";
+import sinon, { SinonSandbox } from "sinon";
 import path from "path";
 const dataDir = path.resolve(path.dirname(__filename), "../");
 const testData = dataDir + "/data/testData";
 
-describe("CSV Converter",  () => {
+describe("CSV Converter", () => {
   let sandbox: SinonSandbox;
-  afterEach( () => {
+  afterEach(() => {
     sandbox.restore();
   });
-  before( () => {
+  before(() => {
     sandbox = sinon.createSandbox();
   });
 
@@ -391,7 +391,7 @@ describe("CSV Converter",  () => {
         trim: false
       })
     );
-    st.then( (res) => {
+    st.then((res) => {
       const j = res[0];
       assert(res.length === 2);
       assert(j.name === "joe");
@@ -411,7 +411,7 @@ describe("CSV Converter",  () => {
         trim: false
       })
     );
-    st.then( (res) => {
+    st.then((res) => {
       const j = res[0];
       assert(res.length === 2);
       assert(j.name === "joe");
@@ -446,13 +446,13 @@ describe("CSV Converter",  () => {
       assert.equal(eol, "\n");
     });
     st.on("eol", eolCallback);
-    st.then( () => {
+    st.then(() => {
       assert.equal(eolCallback.callCount, 1, "should emit eol event once");
       done();
     });
   });
 
-  it("should remove the Byte Order Mark (BOM) from input",  (done) => {
+  it("should remove the Byte Order Mark (BOM) from input", (done) => {
     const testData = dataDir + "/data/dataNoTrimBOM";
     const rs = fs.createReadStream(testData);
     const st = rs.pipe(
@@ -460,7 +460,7 @@ describe("CSV Converter",  () => {
         trim: false
       })
     );
-    st.then( (res) => {
+    st.then((res) => {
       const j = res[0];
       assert(res.length === 2);
       assert(j.name === "joe");

@@ -19,7 +19,11 @@ export type JSONResult = {
   [key: string]: any;
 };
 
-function processRow(row: string[], conv: Converter, index: number): JSONResult | null {
+function processRow(
+  row: string[],
+  conv: Converter,
+  index: number
+): JSONResult | null {
   if (
     conv.parseParam.checkColumn &&
     conv.parseRuntime.headers &&
@@ -212,7 +216,7 @@ function dynamicType(item: string) {
   }
 }
 
-function booleanType(item : string) {
+function booleanType(item: string) {
   const trimmed = item.trim();
   return !(trimmed.length === 5 && trimmed.toLowerCase() === "false");
 }

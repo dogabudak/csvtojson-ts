@@ -28,11 +28,98 @@ import { csv } from "csvtojson-ts";
 - [Browser Usage](#browser-usage)
 - [Contribution](#contribution)
 
-
 ## Library
 
 ### Installation
 
 ```
 npm i --save csvtojson-ts
+```
+
+## Examples
+
+Example using preRawData and preFileLine callbacks:
+```ts
+const converter = new Converter()
+.preRawData((csvString) => {
+// Perform some preprocessing on the raw CSV string
+const processedCSV = csvString.trim();
+return processedCSV;
+})
+.preFileLine((line, lineNumber) => {
+// Perform some preprocessing on each line of the CSV file
+const processedLine = line.toUpperCase();
+return processedLine;
+});
+
+converter.fromString("Name, Age\nJohn, 25\nJane, 30")
+.subscribe(
+(data, lineNumber) => {
+console.log(`Line ${lineNumber}:`, data);
+},
+(error) => {
+console.error("Error:", error);
+},
+() => {
+console.log("Parsing completed");
+}
+);
+```
+
+Example reading from a file:
+
+```ts
+const converter = new Converter();
+
+converter.fromFile("data.csv")
+    .subscribe(
+        (data, lineNumber) => {
+            console.log(`Line ${lineNumber}:`, data);
+        },
+        (error) => {
+            console.error("Error:", error);
+        },
+        () => {
+            console.log("Parsing completed");
+        }
+    );
+```
+Example reading from a readable stream:
+```ts
+const fs = require("fs");
+const readableStream = fs.createReadStream("data.csv");
+
+const converter = new Converter();
+
+converter.fromStream(readableStream)
+  .subscribe(
+    (data, lineNumber) => {
+      console.log(`Line ${lineNumber}:`, data);
+    },
+    (error) => {
+      console.error("Error:", error);
+    },
+    () => {
+      console.log("Parsing completed");
+    }
+  );
+```
+
+Example parsing a CSV string directly:
+```ts
+const converter = new Converter();
+
+converter.fromString("Name, Age\nJohn, 25\nJane, 30")
+  .subscribe(
+    (data, lineNumber) => {
+      console.log(`Line ${lineNumber}:`, data);
+    },
+    (error) => {
+      console.error("Error:", error);
+    },
+    () => {
+      console.log("Parsing completed");
+    }
+  );
+
 ```

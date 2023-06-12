@@ -1,6 +1,6 @@
 import csv from "../../src";
 import assert from "assert";
-import sinon, {SinonSandbox} from "sinon";
+import sinon, { SinonSandbox } from "sinon";
 import fs from "fs";
 import CSVError from "../../src/CSVError";
 import path from "path";

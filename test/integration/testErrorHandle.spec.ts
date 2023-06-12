@@ -1,7 +1,7 @@
 import { Converter } from "../../src/Converter";
 import CSVError from "../../src/CSVError";
-import assert from 'assert'
-import fs from 'fs'
+import assert from "assert";
+import fs from "fs";
 import path from "path";
 const dir = path.resolve(path.dirname(__filename), "../");
 

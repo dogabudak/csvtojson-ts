@@ -3,7 +3,10 @@ import { Converter } from "../../src/Converter";
 const assert = require("assert");
 
 describe("Test delimiters", function () {
-  const getDelimiter = (str: string, opt: { delimiter: string | string[] }): string => {
+  const getDelimiter = (
+    str: string,
+    opt: { delimiter: string | string[] }
+  ): string => {
     return RowSplit.prototype["getDelimiter"].call(
       {
         conv: {

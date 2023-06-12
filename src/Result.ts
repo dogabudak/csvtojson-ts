@@ -164,7 +164,7 @@ function processRecursive(
   conv: Converter,
   offset: number,
   needPushDownstream: boolean,
-  cb: (err? : any) => void,
+  cb: (err?: any) => void,
   res: ProcessLineResult
 ) {
   if (needPushDownstream) {

@@ -36,7 +36,7 @@ export interface ColumnParam {
   cellParser?: string | CellParser;
 }
 
-export function mergeParams(params?: Partial<CSVParseParam>): CSVParseParam {
+export function mergeParams(params?: Partial<CSVParseParam> | any): CSVParseParam {
   const defaultParam: CSVParseParam = {
     delimiter: ",",
     ignoreColumns: undefined,
@@ -65,8 +65,10 @@ export function mergeParams(params?: Partial<CSVParseParam>): CSVParseParam {
   for (let key in params) {
     if (params.hasOwnProperty(key)) {
       if (Array.isArray(params[key])) {
+        // @ts-ignore
         defaultParam[key] = [].concat(params[key]);
       } else {
+        // @ts-ignore
         defaultParam[key] = params[key];
       }
     }

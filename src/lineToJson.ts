@@ -19,7 +19,7 @@ export type JSONResult = {
   [key: string]: any;
 };
 
-function processRow(row: string[], conv: Converter, index): JSONResult | null {
+function processRow(row: string[], conv: Converter, index: number): JSONResult | null {
   if (
     conv.parseParam.checkColumn &&
     conv.parseRuntime.headers &&
@@ -178,7 +178,7 @@ function checkType(
   }
 }
 
-function numberType(item) {
+function numberType(item: string) {
   var rtn = parseFloat(item);
   if (isNaN(rtn)) {
     return item;
@@ -190,7 +190,7 @@ function stringType(item: string): string {
   return item.toString();
 }
 
-function dynamicType(item) {
+function dynamicType(item: string) {
   var trimed = item.trim();
   if (trimed === "") {
     return stringType(item);
@@ -212,12 +212,12 @@ function dynamicType(item) {
   }
 }
 
-function booleanType(item) {
+function booleanType(item : string) {
   const trimmed = item.trim();
   return !(trimmed.length === 5 && trimmed.toLowerCase() === "false");
 }
 
-function jsonType(item) {
+function jsonType(item: any) {
   try {
     return JSON.parse(item);
   } catch (e) {

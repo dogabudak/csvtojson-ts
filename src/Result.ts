@@ -110,7 +110,7 @@ function processLineByLine(
   conv: Converter,
   offset: number,
   needPushDownstream: boolean,
-  cb: (err?) => void
+  cb: (err?: any) => void
 ) {
   if (offset >= lines.length) {
     cb();
@@ -164,7 +164,7 @@ function processRecursive(
   conv: Converter,
   offset: number,
   needPushDownstream: boolean,
-  cb: (err?) => void,
+  cb: (err? : any) => void,
   res: ProcessLineResult
 ) {
   if (needPushDownstream) {

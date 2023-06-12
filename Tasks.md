@@ -1,4 +1,4 @@
-- Examples
+- Examples****
 - is package working
 - fix eslint
 - README.md
@@ -6,14 +6,14 @@
 - deprecate the old one
 - test cov is 100 ?
 - rollup
-- typedoc
 - remove deprecated things
 - refactor stuff 
 - yarn test is not working
 - Parameters.ts description vardi onlari readmeye at
 - "typings": "./typings.d.ts", in package json
+- fix tsignores
 
-each is one task
+- each is one task
 
 Removed commented lines
 Removed bluebird

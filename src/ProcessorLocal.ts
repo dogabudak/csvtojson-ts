@@ -72,7 +72,7 @@ export class ProcessorLocal extends Processor {
         }
       });
   }
-  private processCSV(csv: string, finalChunk: boolean): P<ProcessLineResult[]> {
+  private processCSV(csv: string, finalChunk: boolean): Promise<ProcessLineResult[]> {
     const params = this.params;
     const runtime = this.runtime;
     if (!runtime.eol) {
@@ -242,7 +242,7 @@ function processLineHook(
   lines: string[],
   runtime: ParseRuntime,
   offset: number,
-  cb: (err?) => void
+  cb: (err?: any) => void
 ) {
   if (offset >= lines.length) {
     cb();

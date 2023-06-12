@@ -34,6 +34,7 @@ export class Converter extends Transform implements PromiseLike<any[]> {
   ): Converter {
     access(filePath, constants.F_OK, (err) => {
       if (!err) {
+        // @ts-ignore
         const rs = createReadStream(filePath, options);
         rs.pipe(this);
       } else {

@@ -3,7 +3,7 @@
 - README.md
 - github flows are working
 - deprecate the old one
-- test cov is 100 ?
+- test cov is 100 ? \*\*
 - rollup
 - remove deprecated things
 - refactor stuff
@@ -11,7 +11,7 @@
 - Parameters.ts description vardi onlari readmeye at
 - "typings": "./typings.d.ts", in package json
 - fix tsignores
-
+- packagejson cok gereksiz lib var
 - each is one task
 
 Removed commented lines

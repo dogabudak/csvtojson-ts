@@ -10,20 +10,6 @@
     "node": false,
     "es6": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:unicorn/recommended",
-    "plugin:security/recommended",
-    "prettier",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": [
-    "@typescript-eslint",
-    "unicorn",
-    "security",
-    "prettier",
-    "import",
-    "promise"
-  ]
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint"]
 }

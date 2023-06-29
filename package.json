@@ -46,6 +46,7 @@
     "prettier": "^2.7",
     "sinon": "^14.0.2",
     "ts-mocha": "^10.0",
+    "tsconfig-paths": "^4.1",
     "tsd": "^0.25.0",
     "typedoc": "^0.24.8"
   },
@@ -58,7 +59,7 @@
     "lint:prettier": "prettier --check --ignore-unknown .",
     "format": "prettier --write --ignore-unknown .",
     "prepare": "test \"$NODE_ENV\" = production || is-ci || husky install",
-    "test": "mocha --require ts-node/register test/**/*.spec.ts --exit",
+    "test": "APP_ENV=test nyc --reporter=text ts-mocha -r tsconfig-paths/register",
     "typecheck": "tsc --noEmit"
   },
   "lint-staged": {
@@ -66,17 +67,21 @@
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
-    "browser-dtector": "^3.2.0",
     "dotenv": "^16.0",
     "flat": "^5.0",
-    "json-schema-library": "^7.4",
-    "lodash": "^4.17",
-    "strip-bom": "^5.0.0",
-    "superstruct": "^0.16",
+    "strip-bom": "^4.0",
     "ts-node": "^10.9",
     "tsconfig-paths": "^4.1",
-    "typescript": "^4.9",
-    "wtfnode": "^0.9"
+    "typescript": "^4.9"
+  },
+  "mocha": {
+    "ignore": [
+      "node_modules/**/*",
+      "admin/**/*"
+    ],
+    "spec": "**/*.spec.ts",
+    "trace-warnings": true,
+    "require": "test/global.setup.ts"
   },
   "nyc": {
     "exclude": [

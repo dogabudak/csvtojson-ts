@@ -1,9 +1,33 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "allowUnusedLabels": true,
+    "module": "CommonJS",
+    "target": "es2022",
+    "moduleResolution": "node",
+    "isolatedModules": false,
     "esModuleInterop": true,
-    "module": "ESNext", // "module": "CommonJS" should work too
-    "moduleResolution": "Node"
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "noEmit": true,
+    "strict": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "checkJs": false,
+    "lib": ["es2021"],
+    "inlineSourceMap": true,
+    "incremental": true,
+    "paths": {
+      "@modules/*": ["./modules/*"],
+      "@core/*": ["./core/*"]
+    }
   },
-  "include": ["/**/*.ts"],
-  "exclude": ["node_modules"]
+  "ts-node": {
+    "swc": true,
+    "files": true,
+    "transpileOnly": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules/**/*", ".github/**/*", "admin/**/*"]
 }

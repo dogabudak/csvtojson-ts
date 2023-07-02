@@ -45,7 +45,7 @@ export interface ParseRuntime {
   preRawDataHook?: PreRawDataCallback;
   preFileLineHook?: PreFileLineCallback;
   parsedLineNumber: number;
-  columnValueSetter: Function[];
+  columnValueSetter: any[];
   subscribe?: {
     onNext?: (data: any, lineNumber: number) => void | PromiseLike<void>;
     onError?: (err: CSVError) => void;

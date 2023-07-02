@@ -6,7 +6,7 @@ import CSVError from "./CSVError";
 
 export class ProcessorFork extends Processor {
   flush(): Promise<ProcessLineResult[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.finalChunk = true;
       this.next = resolve;
       this.childProcess.stdin?.end();
@@ -17,10 +17,10 @@ export class ProcessorFork extends Processor {
     return Promise.resolve();
   }
   childProcess: ChildProcess;
-  inited: boolean = false;
+  inited = false;
   private resultBuf: ProcessLineResult[] = [];
-  private leftChunk: string = "";
-  private finalChunk: boolean = false;
+  private leftChunk = "";
+  private finalChunk = false;
   private next?: (result: ProcessLineResult[]) => any;
   constructor(protected converter: Converter) {
     super(converter);
@@ -69,6 +69,7 @@ export class ProcessorFork extends Processor {
           this.converter.emit("header", (msg as StringMessage).value);
         }
       } else if (msg.cmd === "done") {
+        return
       }
     });
     this.childProcess.stdout?.on("data", (data) => {

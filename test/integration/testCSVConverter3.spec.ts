@@ -17,10 +17,10 @@ describe("testCSVConverter3", function () {
   });
 
   it("should parse large csv file with UTF-8 without spliting characters", function (done) {
-    var testData = dir + "/data/large-utf8.csv";
-    var rs = fs.createReadStream(testData);
-    var csvConverter = csv({});
-    var count = 0;
+    const testData = dir + "/data/large-utf8.csv";
+    const rs = fs.createReadStream(testData);
+    const csvConverter = csv({});
+    let count = 0;
     csvConverter.preRawData(function (csvRawData) {
       assert(csvRawData.charCodeAt(0) < 2000);
       return csvRawData;
@@ -251,7 +251,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should parse header with quotes correctly", function () {
-    var testData = dir + "/data/csvWithUnclosedHeader";
+    const testData = dir + "/data/csvWithUnclosedHeader";
     return csv({
       headers: [
         "exam_date",

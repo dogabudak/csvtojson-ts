@@ -120,7 +120,7 @@ export class Converter extends Transform implements PromiseLike<any[]> {
 
     return this;
   }
-  _transform(chunk: any, encoding: string, cb: Function) {
+  _transform(chunk: any, encoding: string, cb: any) {
     this.processor
       .process(chunk)
       .then((result) => {

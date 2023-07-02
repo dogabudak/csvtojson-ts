@@ -26,7 +26,7 @@ describe("ProcessLocal", () => {
   });
   it("should return empty array if preRawHook removed the data", () => {
     const conv = new Converter();
-    conv.preRawData((str) => {
+    conv.preRawData(() => {
       return "";
     });
     const processor = new ProcessorLocal(conv);

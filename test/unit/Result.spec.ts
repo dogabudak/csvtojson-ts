@@ -1,6 +1,5 @@
 import { Result } from "../../src/Result";
 import { Converter } from "../../src/Converter";
-import path from "path";
 import assert from "assert";
 
 describe("Result", () => {

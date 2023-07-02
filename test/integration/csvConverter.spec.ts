@@ -104,7 +104,7 @@ describe("CSV Converter", () => {
 
     //record_parsed will be emitted each time a row has been parsed.
     csvConverter.subscribe(function (resultRow, rowIndex) {
-      for (var key in resultRow) {
+      for (const key in resultRow) {
         if (resultRow.hasOwnProperty(key)) {
           if (!result[key] || !(result[key] instanceof Array)) {
             result[key] = [];
@@ -272,14 +272,14 @@ describe("CSV Converter", () => {
 
     const csvConverter = new Converter({});
     let count = 0;
-    csvConverter.on("data", function (d) {
+    csvConverter.on("data", function () {
       count++;
     });
     csvConverter.on("end", function () {
       assert.equal(count, 5290);
       done();
     });
-    var rs = fs.createReadStream(testData);
+    const rs = fs.createReadStream(testData);
     rs.pipe(csvConverter);
   });
 
@@ -423,11 +423,11 @@ describe("CSV Converter", () => {
   });
 
   it("should emit eol event when line ending is detected as CRLF", function (done) {
-    var testData = dataDir + "/data/dataNoTrimCRLF";
-    var rs = fs.createReadStream(testData);
+    const testData = dataDir + "/data/dataNoTrimCRLF";
+    const rs = fs.createReadStream(testData);
 
-    var st = rs.pipe(new Converter());
-    var eolCallback = sandbox.spy(function (eol) {
+    const st = rs.pipe(new Converter());
+    const eolCallback = sandbox.spy(function (eol) {
       assert.equal(eol, "\r\n");
     });
     st.on("eol", eolCallback);

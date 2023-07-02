@@ -28,7 +28,7 @@ export declare class Converter extends Transform implements PromiseLike<any[]> {
   private runtime;
   private processor;
   private result;
-  constructor(param?: Partial<CSVParseParam>, options?: TransformOptions);
+  constructor(param?: Partial<CSVParseParam>, any?: TransformOptions);
   _transform(chunk: any, encoding: string, cb: Function): void;
   _flush(cb: Function): void;
   private processEnd(cb);

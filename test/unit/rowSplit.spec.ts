@@ -1,6 +1,6 @@
 import { RowSplit, MultipleRowResult, RowSplitResult } from "../../src/rowSplit";
 import { Converter } from "../../src/Converter";
-const assert = require("assert");
+import assert from "assert";
 
 describe("Test delimiters", function () {
   const getDelimiter = (
@@ -20,27 +20,27 @@ describe("Test delimiters", function () {
   };
 
   it("should return the explicitly specified delimiter", function () {
-    var delimiter = ";";
-    var rowStr = "a;b;c";
-    var returnedDelimiter = getDelimiter(rowStr, { delimiter: ";" });
+    const delimiter = ";";
+    const rowStr = "a;b;c";
+    const returnedDelimiter = getDelimiter(rowStr, { delimiter: ";" });
     assert.equal(returnedDelimiter, delimiter);
   });
 
   it("should return the autodetected delimiter if 'auto' specified", function () {
-    var rowStr = "a;b;c";
-    var returnedDelimiter = getDelimiter(rowStr, { delimiter: "auto" });
+    const rowStr = "a;b;c";
+    const returnedDelimiter = getDelimiter(rowStr, { delimiter: "auto" });
     assert(returnedDelimiter === ";");
   });
 
   it("should return the ',' delimiter if delimiter cannot be specified, in case of 'auto'", function () {
-    var rowStr = "abc";
-    var returnedDelimiter = getDelimiter(rowStr, { delimiter: "auto" });
+    const rowStr = "abc";
+    const returnedDelimiter = getDelimiter(rowStr, { delimiter: "auto" });
     assert(returnedDelimiter === ",");
   });
 
   it("should accept an array with potential delimiters", function () {
-    var rowStr = "a$b$c";
-    var returnedDelimiter = getDelimiter(rowStr, { delimiter: [",", ";", "$"] });
+    const rowStr = "a$b$c";
+    const returnedDelimiter = getDelimiter(rowStr, { delimiter: [",", ";", "$"] });
     assert(returnedDelimiter === "$");
   });
 });
@@ -51,15 +51,15 @@ describe("ParseMultiLine function", function () {
     return rowSplit.parseMultiLines(lines);
   };
   it("should convert lines to csv lines", function () {
-    var lines = ["a,b,c,d", "hello,world,csvtojson,abc", "1,2,3,4"];
-    var res = func(lines);
+    const lines = ["a,b,c,d", "hello,world,csvtojson,abc", "1,2,3,4"];
+    const res = func(lines);
     assert.equal(res.rowsCells.length, 3);
     assert.equal(res.partial, "");
   });
 
   it("should process line breaks", function () {
-    var lines = ["a,b,c", '15",hello,"ab', 'cde"', '"b""b",cc,dd'];
-    var res = func(lines);
+    const lines = ["a,b,c", '15",hello,"ab', 'cde"', '"b""b",cc,dd'];
+    const res = func(lines);
     assert.equal(res.rowsCells.length, 3);
     assert.equal(res.rowsCells[1][0], '15"');
     assert.equal(res.rowsCells[1][2], "ab\ncde");
@@ -68,8 +68,8 @@ describe("ParseMultiLine function", function () {
   });
 
   it("should return partial if line not closed", function () {
-    var lines = ["a,b,c", '15",hello,"ab', "d,e,f"];
-    var res = func(lines);
+    const lines = ["a,b,c", '15",hello,"ab', "d,e,f"];
+    const res = func(lines);
     assert.equal(res.rowsCells.length, 1);
     assert.equal(res.partial, '15",hello,"ab\nd,e,f\n');
   });
@@ -81,21 +81,21 @@ describe("RowSplit.parse function", function () {
     return rowSplit.parse(str);
   };
   it("should split complete csv line", function () {
-    var str = "hello,world,csvtojson,awesome";
-    var res = func(str);
+    const str = "hello,world,csvtojson,awesome";
+    const res = func(str);
     assert.equal(res.cells.length, 4);
     assert.equal(res.closed, true);
   });
 
   it("should split incomplete csv line", function () {
-    var str = 'hello,world,"csvtojson,awesome';
-    var res = func(str);
+    const str = 'hello,world,"csvtojson,awesome';
+    const res = func(str);
     assert.equal(res.closed, false);
   });
 
   it("should allow multiple line", function () {
-    var str = '"he"llo",world,"csvtojson,a"\nwesome"';
-    var res = func(str);
+    const str = '"he"llo",world,"csvtojson,a"\nwesome"';
+    const res = func(str);
     assert.equal(res.closed, true);
     assert.equal(res.cells[2], 'csvtojson,a"\nwesome');
   });

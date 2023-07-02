@@ -62,7 +62,7 @@ export function mergeParams(params?: Partial<CSVParseParam> | any): CSVParsePara
   if (!params) {
     params = {};
   }
-  for (let key in params) {
+  for (const key in params) {
     if (params.hasOwnProperty(key)) {
       if (Array.isArray(params[key])) {
         // @ts-ignore

@@ -31,7 +31,6 @@ export class RowSplit {
     }
     const quote = this.quote;
     const trim = this.trim;
-    const escape = this.escape;
     if (
       this.conv.parseRuntime.delimiter instanceof Array ||
       this.conv.parseRuntime.delimiter.toLowerCase() === "auto"
@@ -74,11 +73,10 @@ export class RowSplit {
         if (len === 2 && e === this.quote + this.quote) {
           row.push("");
         } else if (this.isQuoteOpen(e)) {
-          //quote open
-          e = e.substr(1);
+          e = e.substring(1);
           if (this.isQuoteClose(e)) {
             //quote close
-            e = e.substr(0, e.lastIndexOf(quote));
+            e = e.substring(0, e.lastIndexOf(quote) + 1);
             e = this.escapeQuote(e);
             row.push(e);
           } else if (e.indexOf(quote) !== -1) {
@@ -116,7 +114,7 @@ export class RowSplit {
       } else {
         if (this.isQuoteClose(e)) {
           inquote = false;
-          e = e.substr(0, len - 1);
+          e = e.substring(0, len);
           quoteBuff += delimiter + e;
           quoteBuff = this.escapeQuote(quoteBuff);
           if (trim) {

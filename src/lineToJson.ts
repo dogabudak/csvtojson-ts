@@ -168,7 +168,7 @@ function checkType(
   head: string,
   headIdx: number,
   conv: Converter
-): Function {
+): any {
   if (conv.parseRuntime.headerType[headIdx]) {
     return conv.parseRuntime.headerType[headIdx];
   } else if (head.indexOf("number#!") > -1) {
@@ -183,7 +183,7 @@ function checkType(
 }
 
 function numberType(item: string) {
-  var rtn = parseFloat(item);
+  const rtn = parseFloat(item);
   if (isNaN(rtn)) {
     return item;
   }
@@ -195,7 +195,7 @@ function stringType(item: string): string {
 }
 
 function dynamicType(item: string) {
-  var trimed = item.trim();
+  const trimed = item.trim();
   if (trimed === "") {
     return stringType(item);
   }

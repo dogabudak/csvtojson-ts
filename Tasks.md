@@ -5,7 +5,6 @@
 - deprecate the old one
 - test cov is 100 ? \*\*
 - rollup
-- remove deprecated things **\*\***
 - refactor stuff
 - yarn test is not working
 - Parameters.ts description vardi onlari readmeye at

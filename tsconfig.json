@@ -3,7 +3,7 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "allowUnusedLabels": true,
-    "module": "CommonJS",
+    "module": "esnext",
     "target": "es2022",
     "moduleResolution": "node",
     "isolatedModules": false,

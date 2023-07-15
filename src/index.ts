@@ -10,4 +10,4 @@ const helper = function (
 };
 helper["csv"] = helper;
 helper["Converter"] = Converter;
-export = helper;
+export default helper;

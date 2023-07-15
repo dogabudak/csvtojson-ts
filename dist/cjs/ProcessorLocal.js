@@ -1,19 +1,11 @@
-import { Processor } from "./Processor";
-import { prepareData } from "./dataClean";
-import getEol from "./getEol";
-import { stringToLines } from "./fileline";
-import { bufFromString, filterArray } from "./util";
-import { RowSplit } from "./rowSplit";
-import lineToJson from "./lineToJson";
-import CSVError from "./CSVError";
-export class ProcessorLocal extends Processor {
+'use strict';const Processor=require('./Processor.js'),dataClean=require('./dataClean.js'),getEol=require('./getEol.js'),fileline=require('./fileline.js'),util=require('./util.js'),rowSplit=require('./rowSplit.js'),lineToJson=require('./lineToJson.js'),CSVError=require('./CSVError.js');class ProcessorLocal extends Processor.Processor {
     flush() {
         if (this.runtime.csvLineBuffer && this.runtime.csvLineBuffer.length > 0) {
             const buf = this.runtime.csvLineBuffer;
             this.runtime.csvLineBuffer = undefined;
             return this.process(buf, true).then((res) => {
                 if (this.runtime.csvLineBuffer && this.runtime.csvLineBuffer.length > 0) {
-                    return Promise.reject(CSVError.unclosed_quote(this.runtime.parsedLineNumber, this.runtime.csvLineBuffer.toString()));
+                    return Promise.reject(CSVError.default.unclosed_quote(this.runtime.parsedLineNumber, this.runtime.csvLineBuffer.toString()));
                 }
                 else {
                     return Promise.resolve(res);
@@ -27,7 +19,7 @@ export class ProcessorLocal extends Processor {
     destroy() {
         return Promise.resolve();
     }
-    rowSplit = new RowSplit(this.converter);
+    rowSplit = new rowSplit.RowSplit(this.converter);
     eolEmitted = false;
     _needEmitEol = undefined;
     get needEmitEol() {
@@ -50,7 +42,7 @@ export class ProcessorLocal extends Processor {
             csvString = chunk.toString();
         }
         else {
-            csvString = prepareData(chunk, this.converter.parseRuntime);
+            csvString = dataClean.prepareData(chunk, this.converter.parseRuntime);
         }
         return Promise.resolve()
             .then(() => {
@@ -74,7 +66,7 @@ export class ProcessorLocal extends Processor {
         const params = this.params;
         const runtime = this.runtime;
         if (!runtime.eol) {
-            getEol(csv, runtime);
+            getEol.default(csv, runtime);
         }
         if (this.needEmitEol && !this.eolEmitted && runtime.eol) {
             this.converter.emit("eol", runtime.eol);
@@ -84,9 +76,9 @@ export class ProcessorLocal extends Processor {
         if (params.ignoreEmpty && !runtime.started) {
             csv = csv.trimStart();
         }
-        const stringToLineResult = stringToLines(csv, runtime);
+        const stringToLineResult = fileline.stringToLines(csv, runtime);
         if (!finalChunk) {
-            this.prependLeftBuf(bufFromString(stringToLineResult.partial));
+            this.prependLeftBuf(util.bufFromString(stringToLineResult.partial));
         }
         else {
             stringToLineResult.lines.push(stringToLineResult.partial);
@@ -134,10 +126,10 @@ export class ProcessorLocal extends Processor {
                     break;
                 }
                 else {
-                    left = line + getEol(line, this.runtime);
+                    left = line + getEol.default(line, this.runtime);
                 }
             }
-            this.prependLeftBuf(bufFromString(left));
+            this.prependLeftBuf(util.bufFromString(left));
             if (headerRow.length === 0) {
                 return [];
             }
@@ -197,7 +189,7 @@ export class ProcessorLocal extends Processor {
                 //   }
                 // }
             }
-            this.runtime.headers = filterArray(this.runtime.headers, this.runtime.selectedColumns);
+            this.runtime.headers = util.filterArray(this.runtime.headers, this.runtime.selectedColumns);
         }
     }
     processCSVBody(lines) {
@@ -206,12 +198,12 @@ export class ProcessorLocal extends Processor {
         }
         else {
             const result = this.rowSplit.parseMultiLines(lines);
-            this.prependLeftBuf(bufFromString(result.partial));
+            this.prependLeftBuf(util.bufFromString(result.partial));
             if (this.params.output === "csv") {
                 return result.rowsCells;
             }
             else {
-                return lineToJson(result.rowsCells, this.converter);
+                return lineToJson.default(result.rowsCells, this.converter);
             }
         }
     }
@@ -269,5 +261,4 @@ function processLineHook(lines, runtime, offset, cb) {
             cb();
         }
     }
-}
-//# sourceMappingURL=ProcessorLocal.js.map
+}exports.ProcessorLocal=ProcessorLocal;

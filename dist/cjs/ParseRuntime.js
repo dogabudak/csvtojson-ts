@@ -1,4 +1,4 @@
-export function initParseRuntime(converter) {
+'use strict';function initParseRuntime(converter) {
     const params = converter.parseParam;
     const rtn = {
         needProcessIgnoreColumn: false,
@@ -25,5 +25,4 @@ export function initParseRuntime(converter) {
         rtn.needProcessIncludeColumn = true;
     }
     return rtn;
-}
-//# sourceMappingURL=ParseRuntime.js.map
+}exports.initParseRuntime=initParseRuntime;

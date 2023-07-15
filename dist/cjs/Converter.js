@@ -1,10 +1,4 @@
-import { access, constants, createReadStream } from "node:fs";
-import { Transform, Readable } from "stream";
-import { mergeParams } from "./Parameters";
-import { initParseRuntime } from "./ParseRuntime";
-import { ProcessorLocal } from "./ProcessorLocal";
-import { Result } from "./Result";
-export class Converter extends Transform {
+'use strict';const node_fs=require('node:fs'),stream=require('stream'),Parameters=require('./Parameters.js'),ParseRuntime=require('./ParseRuntime.js'),ProcessorLocal=require('./ProcessorLocal.js'),Result=require('./Result.js');class Converter extends stream.Transform {
     options;
     preRawData(onRawData) {
         this.runtime.preRawDataHook = onRawData;
@@ -23,10 +17,10 @@ export class Converter extends Transform {
         return this;
     }
     fromFile(filePath, options) {
-        access(filePath, constants.F_OK, (err) => {
+        node_fs.access(filePath, node_fs.constants.F_OK, (err) => {
             if (!err) {
                 // @ts-ignore
-                const rs = createReadStream(filePath, options);
+                const rs = node_fs.createReadStream(filePath, options);
                 rs.pipe(this);
             }
             else {
@@ -40,7 +34,7 @@ export class Converter extends Transform {
         return this;
     }
     fromString(csvString) {
-        const read = new Readable();
+        const read = new stream.Readable();
         let idx = 0;
         read._read = function (size) {
             if (idx >= csvString.length) {
@@ -89,10 +83,10 @@ export class Converter extends Transform {
     constructor(param, options = {}) {
         super(options);
         this.options = options;
-        this.params = mergeParams(param);
-        this.runtime = initParseRuntime(this);
-        this.result = new Result(this);
-        this.processor = new ProcessorLocal(this);
+        this.params = Parameters.mergeParams(param);
+        this.runtime = ParseRuntime.initParseRuntime(this);
+        this.result = new Result.Result(this);
+        this.processor = new ProcessorLocal.ProcessorLocal(this);
         this.once("error", (err) => {
             setImmediate(() => {
                 this.result.processError(err);
@@ -143,5 +137,4 @@ export class Converter extends Transform {
         this.emit("done");
         cb();
     }
-}
-//# sourceMappingURL=Converter.js.map
+}exports.Converter=Converter;

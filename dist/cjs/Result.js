@@ -1,5 +1,4 @@
-import { EOL } from "os";
-export class Result {
+'use strict';const os=require('os');class Result {
     converter;
     get needEmitLine() {
         return ((!!this.converter.parseRuntime.subscribe &&
@@ -27,7 +26,7 @@ export class Result {
         if (this.needPushDownstream &&
             this.converter.parseParam.downstreamFormat === "array") {
             if (startPos === 0) {
-                pushDownstream(this.converter, "[" + EOL);
+                pushDownstream(this.converter, "[" + os.EOL);
             }
         }
         return new Promise((resolve, reject) => {
@@ -80,7 +79,7 @@ export class Result {
         }
         if (this.needPushDownstream &&
             this.converter.parseParam.downstreamFormat === "array") {
-            pushDownstream(this.converter, "]" + EOL);
+            pushDownstream(this.converter, "]" + os.EOL);
         }
     }
 }
@@ -134,10 +133,9 @@ function processRecursive(lines, hook, conv, offset, needPushDownstream, cb, res
 function pushDownstream(conv, res) {
     if (typeof res === "object" && !conv.options.objectMode) {
         const data = JSON.stringify(res);
-        conv.push(data + (conv.parseParam.downstreamFormat === "array" ? "," + EOL : EOL), "utf8");
+        conv.push(data + (conv.parseParam.downstreamFormat === "array" ? "," + os.EOL : os.EOL), "utf8");
     }
     else {
         conv.push(res);
     }
-}
-//# sourceMappingURL=Result.js.map
+}exports.Result=Result;

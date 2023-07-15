@@ -1,5 +1,5 @@
-//return first eol found from a data chunk.
-export default function (data, param) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});//return first eol found from a data chunk.
+function getEol (data, param) {
     if (!param.eol && data) {
         for (let i = 0, len = data.length; i < len; i++) {
             if (data[i] === "\r") {
@@ -19,5 +19,4 @@ export default function (data, param) {
         }
     }
     return param.eol || "\n";
-}
-//# sourceMappingURL=getEol.js.map
+}exports.default=getEol;

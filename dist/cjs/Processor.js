@@ -1,4 +1,4 @@
-export class Processor {
+'use strict';class Processor {
     converter;
     params;
     runtime;
@@ -7,5 +7,4 @@ export class Processor {
         this.params = converter.parseParam;
         this.runtime = converter.parseRuntime;
     }
-}
-//# sourceMappingURL=Processor.js.map
+}exports.Processor=Processor;

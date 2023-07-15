@@ -1,7 +1,5 @@
-import getEol from "./getEol";
-import { filterArray } from "./util";
-const defaultDelimiters = [",", "|", "\t", ";", ":"];
-export class RowSplit {
+'use strict';const getEol=require('./getEol.js'),util=require('./util.js');const defaultDelimiters = [",", "|", "\t", ";", ":"];
+class RowSplit {
     conv;
     quote;
     trim;
@@ -190,7 +188,7 @@ export class RowSplit {
             }
             if (row.closed || this.conv.parseParam.alwaysSplitAtEOL) {
                 if (this.conv.parseRuntime.selectedColumns) {
-                    csvLines.push(filterArray(row.cells, this.conv.parseRuntime.selectedColumns));
+                    csvLines.push(util.filterArray(row.cells, this.conv.parseRuntime.selectedColumns));
                 }
                 else {
                     csvLines.push(row.cells);
@@ -198,10 +196,9 @@ export class RowSplit {
                 left = "";
             }
             else {
-                left = line + (getEol(line, this.conv.parseRuntime) || "\n");
+                left = line + (getEol.default(line, this.conv.parseRuntime) || "\n");
             }
         }
         return { rowsCells: csvLines, partial: left };
     }
-}
-//# sourceMappingURL=rowSplit.js.map
+}exports.RowSplit=RowSplit;

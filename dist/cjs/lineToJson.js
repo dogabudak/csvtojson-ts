@@ -1,7 +1,5 @@
-import CSVError from "./CSVError";
-import set from "lodash/set";
-const numReg = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
-export default function (csvRows, conv) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});const CSVError=require('./CSVError.js'),set=require('lodash/set');const numReg = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
+function lineToJson (csvRows, conv) {
     const res = [];
     for (let i = 0, len = csvRows.length; i < len; i++) {
         const r = processRow(csvRows[i], conv, i);
@@ -15,7 +13,7 @@ function processRow(row, conv, index) {
     if (conv.parseParam.checkColumn &&
         conv.parseRuntime.headers &&
         row.length !== conv.parseRuntime.headers.length) {
-        throw CSVError.column_mismatched(conv.parseRuntime.parsedLineNumber + index);
+        throw CSVError.default.column_mismatched(conv.parseRuntime.parsedLineNumber + index);
     }
     const headRow = conv.parseRuntime.headers || [];
     const resultRow = convertRowToJson(row, headRow, conv);
@@ -198,5 +196,4 @@ function jsonType(item) {
     catch (e) {
         return item;
     }
-}
-//# sourceMappingURL=lineToJson.js.map
+}exports.default=lineToJson;

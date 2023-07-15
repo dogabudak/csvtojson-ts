@@ -1,4 +1,4 @@
-export default class CSVError extends Error {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});class CSVError extends Error {
     err;
     line;
     extra;
@@ -29,5 +29,4 @@ export default class CSVError extends Error {
             extra: this.extra
         };
     }
-}
-//# sourceMappingURL=CSVError.js.map
+}exports.default=CSVError;

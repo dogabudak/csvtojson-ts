@@ -1,4 +1,4 @@
-export function mergeParams(params) {
+'use strict';function mergeParams(params) {
     const defaultParam = {
         delimiter: ",",
         ignoreColumns: undefined,
@@ -37,5 +37,4 @@ export function mergeParams(params) {
         }
     }
     return defaultParam;
-}
-//# sourceMappingURL=Parameters.js.map
+}exports.mergeParams=mergeParams;

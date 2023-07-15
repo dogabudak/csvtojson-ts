@@ -1,5 +1,4 @@
-import stripBom from "strip-bom";
-export function prepareData(chunk, runtime) {
+'use strict';const stripBom=require('strip-bom');function prepareData(chunk, runtime) {
     const workChunk = concatLeftChunk(chunk, runtime);
     runtime.csvLineBuffer = undefined;
     const cleanCSVString = cleanUtf8Split(workChunk, runtime).toString("utf8");
@@ -33,5 +32,4 @@ function cleanUtf8Split(chunk, runtime) {
     else {
         return chunk;
     }
-}
-//# sourceMappingURL=dataClean.js.map
+}exports.prepareData=prepareData;

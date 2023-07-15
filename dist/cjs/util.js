@@ -1,4 +1,4 @@
-export function bufFromString(str) {
+'use strict';function bufFromString(str) {
     const length = Buffer.byteLength(str);
     const buffer = Buffer.allocUnsafe
         ? Buffer.allocUnsafe(length)
@@ -6,10 +6,7 @@ export function bufFromString(str) {
     buffer.write(str);
     return buffer;
 }
-export function emptyBuffer() {
-    return Buffer.allocUnsafe ? Buffer.allocUnsafe(0) : new Buffer(0);
-}
-export function filterArray(arr, filter) {
+function filterArray(arr, filter) {
     const rtn = [];
     for (let i = 0; i < arr.length; i++) {
         if (filter.indexOf(i) > -1) {
@@ -17,5 +14,4 @@ export function filterArray(arr, filter) {
         }
     }
     return rtn;
-}
-//# sourceMappingURL=util.js.map
+}exports.bufFromString=bufFromString;exports.filterArray=filterArray;

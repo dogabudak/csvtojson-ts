@@ -69,7 +69,7 @@ export class ProcessorFork extends Processor {
           this.converter.emit("header", (msg as StringMessage).value);
         }
       } else if (msg.cmd === "done") {
-        return
+        return;
       }
     });
     this.childProcess.stdout?.on("data", (data) => {

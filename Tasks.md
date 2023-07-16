@@ -1,8 +1,7 @@
 - is package working
 - fix eslint
 - README.md
-- github flows are working****
-- deprecate the old one
+- deprecate the old one ******
 - test cov is 100 ? \*\*
 - refactor stuff
 - yarn test is not working
@@ -10,7 +9,7 @@
 - fix tsignores
 - packagejson cok gereksiz lib var
 - each is one task
-- rollup warninglerini temizle 
+- rollup warninglerini temizle
 
 Removed commented lines
 Removed bluebird

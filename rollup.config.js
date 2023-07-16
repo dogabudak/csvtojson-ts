@@ -1,8 +1,8 @@
-import typescript from '@rollup/plugin-typescript';
+import typescript from "@rollup/plugin-typescript";
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
-  input: ['./src/index.ts'],
+  input: ["./src/index.ts"],
   output: [
     {
       dir: "./dist/cjs",
@@ -28,9 +28,7 @@ const config = {
     annotations: false,
     propertyReadSideEffects: false
   },
-  plugins: [
-    typescript({})
-  ]
+  plugins: [typescript({})]
 };
 
 export default config;

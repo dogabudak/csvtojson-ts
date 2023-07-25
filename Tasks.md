@@ -1,14 +1,12 @@
 - is package working
 - fix eslint
 - README.md
-- deprecate the old one ******
 - test cov is 100 ? \*\*
 - refactor stuff
 - yarn test is not working
-- Parameters.ts description vardi onlari readmeye at
 - fix tsignores
 - packagejson cok gereksiz lib var
-- each is one task
+- github flow failed oluyor
 - rollup warninglerini temizle
 
 Removed commented lines

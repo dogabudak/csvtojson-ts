@@ -7,7 +7,6 @@
 - fix tsignores
 - packagejson cok gereksiz lib var
 - github flow failed oluyor
-- rollup warninglerini temizle
 
 Removed commented lines
 Removed bluebird

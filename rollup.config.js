@@ -5,6 +5,7 @@ const config = {
   input: ["./src/index.ts"],
   output: [
     {
+      sourcemap: true,
       dir: "./dist/cjs",
       format: "commonjs",
       exports: "named",

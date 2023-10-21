@@ -60,7 +60,7 @@
     "lint:eslint": "eslint .",
     "format": "prettier --write --ignore-unknown .",
     "prepare": "test \"$NODE_ENV\" = production || is-ci || husky install",
-    "test": "APP_ENV=test nyc --reporter=text ts-mocha -r tsconfig-paths/register",
+    "test": "APP_ENV=test nyc --reporter=text ts-mocha test/**/*.spec.ts",
     "typecheck": "tsc --noEmit"
   },
   "lint-staged": {

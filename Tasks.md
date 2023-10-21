@@ -1,9 +1,9 @@
 - is package working
 - fix eslint
 - README.md
-- test cov is 100 ? \*\*
+- test cov is 100 ?
 - refactor stuff
-- yarn test is not working
+- fix tests
 - fix tsignores
 - packagejson cok gereksiz lib var
 - github flow failed oluyor

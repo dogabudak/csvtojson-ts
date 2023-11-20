@@ -85,7 +85,6 @@ describe("CSV Converter", () => {
     obj.then(function (result) {
       assert(result[0].col1 === '"Mini. Sectt');
       assert.equal(result[3].col2, "125001,fenvkdsf");
-      // console.log(result);
       done();
     });
     rs.pipe(obj);
@@ -145,7 +144,6 @@ describe("CSV Converter", () => {
     const testData = dataDir + "/data/testData";
     const data = fs.readFileSync(testData).toString();
     const csvConverter = new Converter();
-    //end_parsed will be emitted once parsing finished
     csvConverter.then(function (jsonObj) {
       assert(jsonObj.length === 2);
       done();

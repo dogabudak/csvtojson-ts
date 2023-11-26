@@ -6,7 +6,7 @@
 - fix tests
 - fix tsignores
 - packagejson cok gereksiz lib var
-- github flow failed oluyor ****
+- github flow failed oluyor
 
 Removed commented lines
 Removed bluebird

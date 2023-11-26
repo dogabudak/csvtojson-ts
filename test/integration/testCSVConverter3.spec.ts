@@ -73,12 +73,11 @@ describe("testCSVConverter3", function () {
       });
   });
   it("emit file not exists error when try to open a non-exists file", function () {
-    const cb = sandbox.spy((err: Function) => {
+    const cb = sandbox.spy((err: () => void) => {
       assert(err.toString().indexOf("File does not exist") > -1);
     });
     return csv()
       .fromFile("somefile")
-      .subscribe(function (csv) {})
       .on("error", cb)
       .then(
         () => {
@@ -107,7 +106,7 @@ describe("testCSVConverter3", function () {
   it("should allow async preLine hook", () => {
     return csv()
       .preFileLine((line) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             resolve(line + "changed");
           }, 20);
@@ -131,7 +130,7 @@ describe("testCSVConverter3", function () {
     4,5,6`
       )
       .subscribe((d) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             d.a = 10;
             resolve();
@@ -230,13 +229,9 @@ describe("testCSVConverter3", function () {
     
     2016-07-09,3000,43`
       )
-      .then(
-        (data) => {},
-        (err) => {
-          console.log(err);
-          assert(!err);
-        }
-      );
+      .then((err) => {
+        assert(!err);
+      });
   });
   it("should allow quotes without content", () => {
     const data = "a|^^|^b^";

@@ -11,8 +11,8 @@ export function emptyBuffer(): Buffer {
   return Buffer.allocUnsafe ? Buffer.allocUnsafe(0) : new Buffer(0);
 }
 
-export function filterArray(arr: any[], filter: number[]): any[] {
-  const rtn: any[] = [];
+export function filterArray(arr: string[], filter: number[]): string[] {
+  const rtn: string[] = [];
   for (let i = 0; i < arr.length; i++) {
     if (filter.indexOf(i) > -1) {
       rtn.push(arr[i]);

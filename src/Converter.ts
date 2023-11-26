@@ -143,7 +143,7 @@ export class Converter extends Transform implements PromiseLike<any[]> {
         }
       );
   }
-  _flush(cb: Function) {
+  _flush(cb: () => void) {
     this.processor
       .flush()
       .then((data) => {
@@ -161,7 +161,7 @@ export class Converter extends Transform implements PromiseLike<any[]> {
         }
       );
   }
-  private processEnd(cb: Function) {
+  private processEnd(cb: () => void) {
     this.result.endProcess();
     this.emit("done");
     cb();

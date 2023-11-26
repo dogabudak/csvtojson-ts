@@ -93,15 +93,13 @@ describe("CSV Converter", () => {
   it("should be able to convert a csv to column array data", function (done) {
     const columArrData = dataDir + "/data/columnArray";
     const rs = fs.createReadStream(columArrData);
-    const result: any = {};
+    const result: Record<string, string[]> = {};
     const csvConverter = new Converter();
     //end_parsed will be emitted once parsing finished
     csvConverter.then(function () {
       assert(result.TIMESTAMP.length === 5);
       done();
     });
-
-    //record_parsed will be emitted each time a row has been parsed.
     csvConverter.subscribe(function (resultRow, rowIndex) {
       for (const key in resultRow) {
         if (resultRow.hasOwnProperty(key)) {

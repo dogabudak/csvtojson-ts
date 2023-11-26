@@ -22,10 +22,6 @@ declare type PreRawDataCallback = (
   csvString: string
 ) => string | PromiseLike<string>;
 
-declare interface CSVParseParam {}
-
-declare function mergeParams(param?: Partial<CSVParseParam>): CSVParseParam;
-
 declare interface ParseRuntime {
   subscribe?: {
     onNext?: (data: any, lineNumber: number) => void | PromiseLike<void>;
@@ -54,7 +50,10 @@ declare class Result {
   endProcess(): void;
 }
 
-declare class Converter extends Transform implements PromiseLike<any[]> {
+declare class Converter
+  extends Transform
+  implements PromiseLike<string[] | number[] | Buffer[]>
+{
   public options: TransformOptions;
   public parseParam: CSVParseParam;
   public parseRuntime: ParseRuntime;

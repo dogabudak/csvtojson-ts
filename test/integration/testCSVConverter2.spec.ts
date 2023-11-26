@@ -37,9 +37,6 @@ describe("testCSVConverter2", function () {
       // assert(row.length === 2);
       assert(index >= 0);
     });
-    conv.on("error", function () {
-      console.log(arguments);
-    });
     conv.then(function (result) {
       assert(result);
       assert(count === 5290);

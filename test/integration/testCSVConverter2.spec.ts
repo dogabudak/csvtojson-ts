@@ -528,7 +528,7 @@ describe("testCSVConverter2", function () {
         assert(idx >= 0);
         assert.equal(expected.length, Object.keys(j).length);
         expected.forEach(function (attribute) {
-          assert(j.hasOwnProperty(attribute));
+          assert(j[attribute]);
         });
       })
       .on("done", function () {

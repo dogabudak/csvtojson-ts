@@ -1,5 +1,4 @@
 - is package working
-- fix eslint
 - README.md
 - test cov is 100 ?
 - refactor stuff

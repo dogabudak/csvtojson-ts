@@ -3,7 +3,7 @@ import { Converter } from "./Converter";
 import { ChildProcess } from "child_process";
 import { CSVParseParam, mergeParams } from "./Parameters";
 import CSVError from "./CSVError";
-
+import { spawn } from "child_process";
 export class ProcessorFork extends Processor {
   flush(): Promise<ProcessLineResult[]> {
     return new Promise((resolve) => {
@@ -24,13 +24,9 @@ export class ProcessorFork extends Processor {
   private next?: (result: ProcessLineResult[]) => any;
   constructor(protected converter: Converter) {
     super(converter);
-    this.childProcess = require("child_process").spawn(
-      process.execPath,
-      [__dirname + "/../v2/worker.js"],
-      {
-        stdio: ["pipe", "pipe", "pipe", "ipc"]
-      }
-    );
+    this.childProcess = spawn(process.execPath, [__dirname + "/../v2/worker.js"], {
+      stdio: ["pipe", "pipe", "pipe", "ipc"]
+    });
     this.initWorker();
   }
   private prepareParam(param: CSVParseParam): any {

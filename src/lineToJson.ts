@@ -86,8 +86,7 @@ function convertRowToJson(
 
 const builtInConv: { [key: string]: CellParser } = {
   string: stringType,
-  number: numberType,
-  omit: function () {}
+  number: numberType
 };
 function getConvFunc(head: string, i: number, conv: Converter): CellParser | null {
   if (conv.parseRuntime.columnConv[i] !== undefined) {
@@ -131,7 +130,7 @@ function setPath(
         let jsonHead = true;
         while (headArr.length > 0) {
           const headCom = headArr.shift();
-          if (headCom!.length === 0) {
+          if (headCom?.length === 0) {
             jsonHead = false;
             break;
           }

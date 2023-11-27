@@ -102,7 +102,7 @@ describe("CSV Converter", () => {
     });
     csvConverter.subscribe(function (resultRow, rowIndex) {
       for (const key in resultRow) {
-        if (resultRow.hasOwnProperty(key)) {
+        if (resultRow[key]) {
           if (!result[key] || !(result[key] instanceof Array)) {
             result[key] = [];
           }

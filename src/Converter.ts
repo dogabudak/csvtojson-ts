@@ -1,5 +1,5 @@
 import { access, constants, createReadStream } from "node:fs";
-import { Transform, TransformOptions, Readable } from "stream";
+import { Transform, TransformOptions, Readable, ReadableOptions } from "stream";
 import { CSVParseParam, mergeParams } from "./Parameters";
 import { ParseRuntime, initParseRuntime } from "./ParseRuntime";
 import { Processor } from "./Processor";
@@ -30,11 +30,10 @@ export class Converter extends Transform implements PromiseLike<any[]> {
   }
   fromFile(
     filePath: string,
-    options?: string | CreateReadStreamOption | undefined
+    options?: BufferEncoding | ReadableOptions | undefined
   ): Converter {
     access(filePath, constants.F_OK, (err) => {
       if (!err) {
-        // @ts-ignore
         const rs = createReadStream(filePath, options);
         rs.pipe(this);
       } else {

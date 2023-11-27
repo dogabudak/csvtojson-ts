@@ -36,9 +36,7 @@ declare interface ParseRuntime {
 
 declare function initParseRuntime(converter: Converter): ParseRuntime;
 
-declare interface Processor {}
-
-declare class ProcessorLocal implements Processor {
+declare class ProcessorLocal {
   constructor(converter: Converter);
   destroy(): void;
 }

@@ -37,7 +37,7 @@ export interface ColumnParam {
 }
 
 export function mergeParams(params?: Partial<CSVParseParam> | any): CSVParseParam {
-  const defaultParam: CSVParseParam = {
+  const defaultParam: Record<string, any> = {
     delimiter: ",",
     ignoreColumns: undefined,
     includeColumns: undefined,
@@ -63,15 +63,13 @@ export function mergeParams(params?: Partial<CSVParseParam> | any): CSVParsePara
     params = {};
   }
   for (const key in params) {
-    if (params.hasOwnProperty(key)) {
+    if (params[key]) {
       if (Array.isArray(params[key])) {
-        // @ts-ignore
         defaultParam[key] = [].concat(params[key]);
       } else {
-        // @ts-ignore
         defaultParam[key] = params[key];
       }
     }
   }
-  return defaultParam;
+  return defaultParam as CSVParseParam;
 }

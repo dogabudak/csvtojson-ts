@@ -4,7 +4,6 @@
 - refactor stuff
 - fix tests
 - fix tsignores
-- packagejson cok gereksiz lib var
 - github flow failed oluyor
 
 Removed commented lines

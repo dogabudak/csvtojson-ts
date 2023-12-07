@@ -27,8 +27,8 @@ function cleanUtf8Split(chunk: Buffer, runtime: ParseRuntime): Buffer {
     idx--;
   }
   if (idx != chunk.length - 1) {
-    runtime.csvLineBuffer = chunk.slice(idx + 1);
-    return chunk.slice(0, idx + 1);
+    runtime.csvLineBuffer = chunk.subarray(idx + 1);
+    return chunk.subarray(0, idx + 1);
   } else {
     return chunk;
   }

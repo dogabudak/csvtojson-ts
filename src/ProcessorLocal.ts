@@ -183,18 +183,6 @@ export class ProcessorLocal extends Processor {
         } else {
           this.runtime.selectedColumns.push(i);
         }
-        // if (this.params.includeColumns && this.params.includeColumns.test(headers[i])){
-        //   this.runtime.selectedColumns.push(i);
-        // }else{
-        //   if (this.params.ignoreColumns && this.params.ignoreColumns.test(headers[i])){
-        //     continue;
-        //   }else{
-        //     if (this.params.ignoreColumns && !this.params.includeColumns){
-        //       this.runtime.selectedColumns.push(i);
-        //     }
-
-        //   }
-        // }
       }
       this.runtime.headers = filterArray(
         this.runtime.headers,

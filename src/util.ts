@@ -7,10 +7,6 @@ export function bufFromString(str: string): Buffer {
   return buffer;
 }
 
-export function emptyBuffer(): Buffer {
-  return Buffer.allocUnsafe ? Buffer.allocUnsafe(0) : new Buffer(0);
-}
-
 export function filterArray(arr: string[], filter: number[]): string[] {
   const rtn: string[] = [];
   for (let i = 0; i < arr.length; i++) {

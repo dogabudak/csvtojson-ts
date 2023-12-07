@@ -3,7 +3,6 @@
 - test cov is 100 ?
 - refactor stuff
 - fix tests
-- fix tsignores
 - github flow failed oluyor
 
 Removed commented lines

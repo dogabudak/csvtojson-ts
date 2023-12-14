@@ -4,7 +4,8 @@
 - refactor stuff
 - fix tests
 - github flow failed oluyor
-
+- fix ts-ignore
+- get rid of substr 
 Removed commented lines
 Removed bluebird
 increased test cov to 100

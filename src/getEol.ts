@@ -1,5 +1,4 @@
 import { ParseRuntime } from "./ParseRuntime";
-//return first eol found from a data chunk.
 export default function (data: string, param: ParseRuntime): string {
   if (!param.eol && data) {
     for (let i = 0, len = data.length; i < len; i++) {

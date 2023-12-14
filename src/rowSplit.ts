@@ -73,22 +73,20 @@ export class RowSplit {
         if (len === 2 && e === this.quote + this.quote) {
           row.push("");
         } else if (this.isQuoteOpen(e)) {
-          e = e.substring(1);
+          e = e.substr(1);
           if (this.isQuoteClose(e)) {
             //quote close
-            e = e.substring(0, e.lastIndexOf(quote) + 1);
+            e = e.substr(0, e.lastIndexOf(quote));
             e = this.escapeQuote(e);
             row.push(e);
           } else if (e.indexOf(quote) !== -1) {
             let count = 0;
             let prev = "";
             for (const c of e) {
-              // count quotes only if previous character is not escape char
               if (c === quote && prev !== this.escape) {
                 count++;
                 prev = "";
               } else {
-                // save previous char to temp variable
                 prev = c;
               }
             }
@@ -114,7 +112,7 @@ export class RowSplit {
       } else {
         if (this.isQuoteClose(e)) {
           inquote = false;
-          e = e.substring(0, len);
+          e = e.substr(0, len - 1);
           quoteBuff += delimiter + e;
           quoteBuff = this.escapeQuote(quoteBuff);
           if (trim) {

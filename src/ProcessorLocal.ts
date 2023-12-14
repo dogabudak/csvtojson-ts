@@ -217,35 +217,26 @@ export class ProcessorLocal extends Processor {
     }
   }
   private runPreLineHook(lines: string[]): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      processLineHook(lines, this.runtime, 0, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(lines);
-        }
-      });
-    });
+      // @ts-ignore
+    return processLineHook(lines, this.runtime, 0);
   }
 }
 
-function processLineHook(
+async function processLineHook(
   lines: string[],
   runtime: ParseRuntime,
-  offset: number,
-  cb: (err?: any) => void
-) {
+  offset: number) {
   if (offset >= lines.length) {
-    cb();
+    return
   } else {
     if (runtime.preFileLineHook) {
       const line = lines[offset];
       const res = runtime.preFileLineHook(line, runtime.parsedLineNumber + offset);
       offset++;
       if (res && (res as PromiseLike<string>).then) {
-        (res as PromiseLike<string>).then((value) => {
+        (res as PromiseLike<string>).then(async (value) => {
           lines[offset - 1] = value;
-          processLineHook(lines, runtime, offset, cb);
+          return await processLineHook(lines, runtime, offset);
         });
       } else {
         lines[offset - 1] = res as string;
@@ -256,10 +247,10 @@ function processLineHook(
           ) as string;
           offset++;
         }
-        cb();
+        return
       }
     } else {
-      cb();
+      return
     }
   }
 }

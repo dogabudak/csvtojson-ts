@@ -1,5 +1,5 @@
 import { ParseRuntime } from "./ParseRuntime";
-export default function (data: string, param: ParseRuntime): string {
+const getEol = (data: string, param: ParseRuntime): string => {
   if (!param.eol && data) {
     for (let i = 0, len = data.length; i < len; i++) {
       if (data[i] === "\r") {
@@ -18,3 +18,5 @@ export default function (data: string, param: ParseRuntime): string {
   }
   return param.eol || "\n";
 }
+
+export default getEol

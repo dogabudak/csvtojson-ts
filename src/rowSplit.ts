@@ -202,10 +202,13 @@ export class RowSplit {
 
         left = "";
       } else {
-        left = line + (getEol(line, this.conv.parseRuntime) || "\n");
+        left = this.parseOpenLines(line);
       }
     }
     return { rowsCells: csvLines, partial: left };
+  }
+  parseOpenLines(line: string): string {
+    return line + (getEol(line, this.conv.parseRuntime) || "\n");
   }
 }
 export interface MultipleRowResult {

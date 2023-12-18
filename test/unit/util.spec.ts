@@ -7,5 +7,4 @@ describe(('bufFromString function'), () => {
         const result = bufFromString(str);
         assert.equal(result.length, 0);
     });
-
 })

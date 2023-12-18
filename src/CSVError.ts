@@ -18,11 +18,4 @@ export default class CSVError extends Error {
     );
     this.name = "CSV Parse Error";
   }
-  toJSON() {
-    return {
-      err: this.err,
-      line: this.line,
-      extra: this.extra
-    };
-  }
 }

@@ -1,6 +1,7 @@
 import { RowSplit, MultipleRowResult, RowSplitResult } from "../../src/rowSplit";
 import { Converter } from "../../src/Converter";
 import assert from "assert";
+import {Fileline} from "../../src/fileline";
 
 describe("Test delimiters", function () {
   const getDelimiter = (
@@ -136,5 +137,15 @@ describe("RowSplit.parse function", function () {
     assert.equal(res.cells[0], '"Weight" (kg)');
     assert.equal(res.cells[1], "Error code");
     assert.equal(res.cells[2], '"Height" (m)');
+  });
+  it('should concatenate the input string with the end-of-line character when it exists', () => {
+    // Arrange
+    const conv = new Converter();
+    const rowSplit = new RowSplit(conv);
+    const line = "1,John,Doe";
+    const expected = "1,John,Doe\n";
+    const result = rowSplit.parseOpenLines(line);
+
+    assert.strictEqual(result, expected);
   });
 });

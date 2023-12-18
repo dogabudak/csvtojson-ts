@@ -158,7 +158,7 @@ function processLineByLine(
   }
 }
 
-function processRecursive(
+export function processRecursive(
   lines: ProcessLineResult[],
   hook: (data: any, lineNumber: number) => void | PromiseLike<void>,
   conv: Converter,

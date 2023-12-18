@@ -18,7 +18,7 @@ function concatLeftChunk(chunk: Buffer, runtime: ParseRuntime): Buffer {
     return chunk;
   }
 }
-function cleanUtf8Split(chunk: Buffer, runtime: ParseRuntime): Buffer {
+export function cleanUtf8Split(chunk: Buffer, runtime: ParseRuntime): Buffer {
   let idx = chunk.length - 1;
   if ((chunk[idx] & (1 << 7)) != 0) {
     while ((chunk[idx] & (3 << 6)) === 128) {

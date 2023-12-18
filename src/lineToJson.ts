@@ -162,7 +162,7 @@ function jsonSetter(resultJson: any, head: string, value: any) {
   set(resultJson, head, value);
 }
 
-function checkType(
+export function checkType(
   item: string,
   head: string,
   headIdx: number,
@@ -181,7 +181,7 @@ function checkType(
   }
 }
 
-function numberType(item: string) {
+export function numberType(item: string) {
   const rtn = parseFloat(item);
   if (isNaN(rtn)) {
     return item;
@@ -189,11 +189,11 @@ function numberType(item: string) {
   return rtn;
 }
 
-function stringType(item: string): string {
+export function stringType(item: string): string {
   return item.toString();
 }
 
-function dynamicType(item: string) {
+export function dynamicType(item: string) {
   const trimed = item.trim();
   if (trimed === "") {
     return stringType(item);

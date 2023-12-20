@@ -170,9 +170,7 @@ export class ProcessorLocal extends Processor {
               this.params.includeColumns.test(headers[i])
             ) {
               this.runtime.selectedColumns.push(i);
-            } else {
-              continue;
-            }
+            } else {}
           } else {
             this.runtime.selectedColumns.push(i);
           }

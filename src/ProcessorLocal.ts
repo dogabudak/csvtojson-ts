@@ -97,7 +97,7 @@ export class ProcessorLocal extends Processor {
       stringToLineResult.partial = "";
     }
     if (stringToLineResult.lines.length > 0) {
-      let prom: Promise<string[]>;
+      let prom: Promise<string[]> | Promise<void>;
       if (runtime.preFileLineHook) {
         prom = this.runPreLineHook(stringToLineResult.lines);
       } else {
@@ -105,9 +105,9 @@ export class ProcessorLocal extends Processor {
       }
       return prom.then((lines) => {
         if (!runtime.started && !this.runtime.headers) {
-          return this.processDataWithHead(lines);
+          return this.processDataWithHead(lines as string[]);
         } else {
-          return this.processCSVBody(lines);
+          return this.processCSVBody(lines as string[]);
         }
       });
     } else {
@@ -214,8 +214,7 @@ export class ProcessorLocal extends Processor {
       }
     }
   }
-  private runPreLineHook(lines: string[]): Promise<string[]> {
-      // @ts-ignore
+  private runPreLineHook(lines: string[]): Promise<string[]> | Promise<void> {
     return processLineHook(lines, this.runtime, 0);
   }
 }

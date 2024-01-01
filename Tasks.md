@@ -3,7 +3,6 @@
 - test cov is 100 ?
 - fix tests
 - github flow failed oluyor
-- fix ts-ignore
 - get rid of substr 
 
  

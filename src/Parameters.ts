@@ -20,7 +20,6 @@ export interface CSVParseParam {
   output: "json" | "csv" | "line";
   nullObject: boolean;
   downstreamFormat: "line" | "array";
-  needEmitAll: boolean;
 }
 
 export type CellParser = (
@@ -56,8 +55,7 @@ export function mergeParams(params?: Partial<CSVParseParam> | any): CSVParsePara
     alwaysSplitAtEOL: false,
     output: "json",
     nullObject: false,
-    downstreamFormat: "line",
-    needEmitAll: true
+    downstreamFormat: "line"
   };
   if (!params) {
     params = {};

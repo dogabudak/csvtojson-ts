@@ -85,7 +85,7 @@ export class Converter extends Transform implements PromiseLike<any[]> {
             reject(err);
           }
         }
-      };
+      }
     });
   }
   public get parseParam(): CSVParseParam {

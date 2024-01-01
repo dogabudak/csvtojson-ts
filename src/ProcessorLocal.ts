@@ -124,7 +124,7 @@ export class ProcessorLocal extends Processor {
     } else {
       let left = "";
       let headerRow: string[] = [];
-      while (lines.length) {
+      while (lines?.length) {
         const line = left + lines.shift();
         const row = this.rowSplit.parse(line);
         if (row.closed) {

@@ -4,15 +4,6 @@ import assert from "assert";
 import {ProcessLineResult} from "../../src/Processor";
 
 describe("Result", () => {
-  it("should return need push downstream based on needEmitAll parameter", function () {
-    const conv = new Converter();
-    const res = new Result(conv);
-    assert.equal(res["needEmitAll"], false);
-    conv.then();
-    assert.equal(res["needEmitAll"], true);
-    conv.parseParam.needEmitAll = false;
-    assert.equal(res["needEmitAll"], false);
-  });
   it('should call pushDownstream when needPushDownstream is true', () => {
     const lines: ProcessLineResult[] = ["line1", "line2", "line3"];
     const hook = (data: any, lineNumber: number) => {

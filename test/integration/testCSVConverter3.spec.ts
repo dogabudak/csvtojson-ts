@@ -185,8 +185,8 @@ describe("testCSVConverter3", function () {
         assert.equal(d[1].a, "fefe");
       });
   });
-  it("should omit a column", () => {
-    return csv({
+  it("should omit a column", async () => {
+    const d =  await csv({
       colParser: {
         a: "omit"
       }
@@ -196,10 +196,8 @@ describe("testCSVConverter3", function () {
   1,2,3
   fefe,5,6`
       )
-      .then((d) => {
-        assert.strictEqual(d[0].a, undefined);
-        assert.equal(d[1].a, undefined);
-      });
+    assert.strictEqual(d[0].a, undefined);
+    assert.equal(d[1].a, undefined);
   });
   it("could turn off quote and should trim even quote is turned off", () => {
     return csv({
@@ -218,8 +216,8 @@ describe("testCSVConverter3", function () {
         assert.equal(d[1].b, '5"');
       });
   });
-  it("should allow ignoreEmpty with checkColumn", () => {
-    return csv({
+  it("should allow ignoreEmpty with checkColumn", async () => {
+     const result = await csv({
       checkColumn: true,
       ignoreEmpty: true
     })
@@ -229,9 +227,8 @@ describe("testCSVConverter3", function () {
     
     2016-07-09,3000,43`
       )
-      .then((err) => {
-        assert(!err);
-      });
+    assert.equal(result[0].date, '2016-07-08')
+    assert.equal(result[1].date, '2016-07-09')
   });
   it("should allow quotes without content", () => {
     const data = "a|^^|^b^";
@@ -355,18 +352,7 @@ describe("testCSVConverter3", function () {
         done();
       });
   });
-  it("should not send json if needEmitAll is false", async function () {
-    const data = `a,b,c
-1,2,3
-4,5,6`;
-    return csv({
-      needEmitAll: false
-    })
-      .fromString(data)
-      .then((d) => {
-        assert(d.length === 0);
-      });
-  });
+
   it("should convert null to null object", async function () {
     const data = `a,b,c
 null,2,3

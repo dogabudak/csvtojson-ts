@@ -225,14 +225,13 @@ describe("testCSVConverter2", function () {
     const testData = dataDir + "/data/quoteTolerant";
     const rs = fs.createReadStream(testData);
     const conv = new Converter();
-    conv.preFileLine(function (line, lineNumber) {
+    conv.preFileLine( (line, lineNumber) => {
       if (lineNumber === 1) {
         line = line.replace("THICK", "THIN");
       }
       return line;
     });
-
-    conv.then(function (res) {
+    conv.then( (res)=> {
       assert(res[0].Description.indexOf("THIN") > -1);
       done();
     });

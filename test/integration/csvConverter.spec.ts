@@ -95,8 +95,8 @@ describe("CSV Converter", () => {
     const rs = fs.createReadStream(columArrData);
     const result: Record<string, string[]> = {};
     const csvConverter = new Converter();
-    //end_parsed will be emitted once parsing finished
     csvConverter.then(function () {
+      console.log(result)
       assert(result.TIMESTAMP.length === 5);
       done();
     });
@@ -427,10 +427,11 @@ describe("CSV Converter", () => {
       assert.equal(eol, "\r\n");
     });
     st.on("eol", eolCallback);
-    st.then(function () {
+    st.then( () => {
       assert.equal(eolCallback.callCount, 1, "should emit eol event once");
       done();
     });
+
   });
 
   it("should emit eol event when line ending is detected as LF", function (done) {

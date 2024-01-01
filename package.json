@@ -52,7 +52,6 @@
     "lint": "npm run typecheck && npm run format && npm run lint:eslint",
     "lint:eslint": "eslint .",
     "format": "prettier --write --ignore-unknown .",
-    "prepare": "test \"$NODE_ENV\" = production || is-ci",
     "test": "APP_ENV=test nyc --reporter=text ts-mocha test/**/*.spec.ts",
     "typecheck": "tsc --noEmit"
   },
@@ -61,7 +60,7 @@
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
-    "strip-bom": "^4.0",
+    "strip-bom": "4.0",
     "lodash": "^4.17.21"
   },
   "mocha": {

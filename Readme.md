@@ -1,6 +1,26 @@
 # CSVTOJSON-TS
 
-`csvtojson` module is a comprehensive nodejs csv parser to convert csv to json or column arrays. Below are some features:
+Improved and never version of [csvtojson](https://github.com/Keyang/node-csvtojson/) with typescript support.
+
+[![Build Status](https://travis-ci.org/dogabudak/csvtojson-ts.svg?branch=master)](https://travis-ci.org/dogabudak/csvtojson-ts)
+[![Coverage Status](https://coveralls.io/repos/github/dogabudak/csvtojson-ts/badge.svg?branch=master)](https://coveralls.io/github/dogabudak/csvtojson-ts?branch=master)
+[![npm version](https://badge.fury.io/js/csvtojson-ts.svg)](https://badge.fury.io/js/csvtojson-ts)
+[![npm](https://img.shields.io/npm/dt/csvtojson-ts.svg)](https://www.npmjs.com/package/csvtojson-ts)
+[![npm](https://img.shields.io/npm/dm/csvtojson-ts.svg)](https://www.npmjs.com/package/csvtojson-ts)
+[![GitHub license](https://img.shields.io/github/license/dogabudak/csvtojson-ts.svg)]
+[![GitHub issues](https://img.shields.io/github/issues/dogabudak/csvtojson-ts.svg)]
+[![GitHub stars](https://img.shields.io/github/stars/dogabudak/csvtojson-ts.svg)]
+[![GitHub forks](https://img.shields.io/github/forks/dogabudak/csvtojson-ts.svg)]
+
+## What's New in Version X.X.X
+
+- **Comment Removal:** Removed all commented-out lines for cleaner codebase.
+- **Bluebird.js Removal:** Removed the dependency on bluebird.js, reducing the library size.
+- **TypeScript Conversion:** Fully converted the library from Node.js to TypeScript for enhanced type safety.
+- **Size Reduction:** Decreased the overall size of the library for improved performance and faster load times.
+- **Test Coverage:** Achieved 100% test coverage to ensure the reliability and stability of the library.
+
+`csvtojson-ts` module is a comprehensive nodejs csv parser to convert csv to json or column arrays. Below are some features:
 
 - Strictly follow CSV definition [RFC4180](https://www.loc.gov/preservation/digital/formats/fdd/fdd000323.shtml)
 - Work with millions of lines of CSV data
@@ -22,6 +42,8 @@ import { csv } from "csvtojson-ts";
 - [API](#api)
 - [Browser Usage](#browser-usage)
 - [Contribution](#contribution)
+- [License](https://github.com/dogabudak/csvtojson-ts/blob/master/LICENSE.txt)
+
 
 ## Library
 
@@ -124,11 +146,11 @@ Following parameters are supported:
 - **delimiter**: delimiter used for separating columns. Use "auto" if delimiter is unknown in advance, in this case, delimiter will be auto-detected (by best attempt). Use an array to give a list of potential delimiters e.g. [",","|","$"]. default: ","
 - **quote**: If a column contains delimiter, it is able to use quote character to surround the column content. e.g. "hello, world" won't be split into two columns while parsing. Set to "off" will ignore all quotes. default: " (double quote)
 - **trim**: Indicate if parser trim off spaces surrounding column content. e.g. " content " will be trimmed to "content". Default: true
-- **checkType**: This parameter turns on and off whether check field type. Default is false. (The default is `true` if version < 1.1.4)
+- **checkType**: This parameter turns on and off whether check field type. Default is false.
 - **ignoreEmpty**: Ignore the empty value in CSV columns. If a column value is not given, set this to true to skip them. Default: false.
 - **fork (experimental)**: Fork another process to parse the CSV stream. It is effective if many concurrent parsing sessions for large csv files. Default: false
-- **noheader**:Indicating csv data has no header row and first row is data row. Default is false. See [header row](#header-row)
-- **headers**: An array to specify the headers of CSV data. If --noheader is false, this value will override CSV header row. Default: null. Example: ["my field","name"]. See [header row](#header-row)
+- **noheader**:Indicating csv data has no header row and first row is data row. Default is false.
+- **headers**: An array to specify the headers of CSV data. If --noheader is false, this value will override CSV header row. Default: null. Example: ["my field","name"]. 
 - **flatKeys**: Don't interpret dots (.) and square brackets in header fields as nested object or array identifiers at all (treat them like regular characters for JSON field identifiers). Default: false.
 - **maxRowLength**: the max character a csv row could have. 0 means infinite. If max number exceeded, parser will emit "error" of "row_exceed". if a possibly corrupted csv data provided, give it a number like 65535 so the parser won't consume memory. default: 0
 - **checkColumn**: whether check column number of a row is the same as headers. If column number mismatched headers number, an error of "mismatched_column" will be emitted.. default: false

@@ -96,7 +96,6 @@ describe("CSV Converter", () => {
     const result: Record<string, string[]> = {};
     const csvConverter = new Converter();
     csvConverter.then(function () {
-      console.log(result)
       assert(result.TIMESTAMP.length === 5);
       done();
     });

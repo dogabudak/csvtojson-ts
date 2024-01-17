@@ -19,7 +19,9 @@ export class Result {
     }
     return this._needPushDownstream;
   }
-
+  private get needEmitAll(): boolean {
+    return !!this.converter.parseRuntime.then && this.converter.parseParam.needEmitAll;
+  }
   private finalResult: any[] = [];
   constructor(private converter: Converter) {}
   processResult(resultLines: ProcessLineResult[]): Promise<any> {
@@ -55,8 +57,10 @@ export class Result {
     });
   }
   appendFinalResult(lines: any[]) {
-    this.finalResult = this.finalResult.concat(lines);
-
+    if (this.needEmitAll) {
+      this.finalResult = this.finalResult.concat(lines);
+    }
+    this.converter.parseRuntime.parsedLineNumber += lines.length;
   }
   processError(err: CSVError) {
     if (
@@ -73,22 +77,17 @@ export class Result {
     }
   }
   endProcess() {
-    if (
-      this.converter.parseRuntime.then &&
-      this.converter.parseRuntime.then.onfulfilled
-    ) {
-      this.converter.parseRuntime.then.onfulfilled(this.finalResult);
+    if (this.converter.parseRuntime.then && this.converter.parseRuntime.then.onfulfilled) {
+      if (this.needEmitAll) {
+        this.converter.parseRuntime.then.onfulfilled(this.finalResult);
+      }else{
+        this.converter.parseRuntime.then.onfulfilled([]);
+      }
     }
-    if (
-      this.converter.parseRuntime.subscribe &&
-      this.converter.parseRuntime.subscribe.onCompleted
-    ) {
+    if (this.converter.parseRuntime.subscribe && this.converter.parseRuntime.subscribe.onCompleted) {
       this.converter.parseRuntime.subscribe.onCompleted();
     }
-    if (
-      this.needPushDownstream &&
-      this.converter.parseParam.downstreamFormat === "array"
-    ) {
+    if (this.needPushDownstream && this.converter.parseParam.downstreamFormat === "array") {
       pushDownstream(this.converter, "]" + EOL);
     }
   }

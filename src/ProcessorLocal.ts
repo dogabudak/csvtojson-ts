@@ -214,40 +214,42 @@ export class ProcessorLocal extends Processor {
       }
     }
   }
-  private runPreLineHook(lines: string[]): Promise<string[]> | Promise<void> {
-    return processLineHook(lines, this.runtime, 0);
+  private runPreLineHook(lines: string[]): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+      processLineHook(lines, this.runtime, 0, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(lines);
+        }
+      })
+    });
   }
 }
 
-async function processLineHook(
-  lines: string[],
-  runtime: ParseRuntime,
-  offset: number) {
+function processLineHook(lines: string[], runtime: ParseRuntime, offset: number, cb: (err?: any) => void) {
   if (offset >= lines.length) {
-    return
+    cb();
   } else {
     if (runtime.preFileLineHook) {
       const line = lines[offset];
       const res = runtime.preFileLineHook(line, runtime.parsedLineNumber + offset);
       offset++;
       if (res && (res as PromiseLike<string>).then) {
-        (res as PromiseLike<string>).then(async (value) => {
+        (res as PromiseLike<string>).then((value) => {
           lines[offset - 1] = value;
-          return await processLineHook(lines, runtime, offset);
+          processLineHook(lines, runtime, offset, cb);
         });
       } else {
         lines[offset - 1] = res as string;
         while (offset < lines.length) {
-          lines[offset] = runtime.preFileLineHook(
-            lines[offset],
-            runtime.parsedLineNumber + offset
-          ) as string;
+          lines[offset] = runtime.preFileLineHook(lines[offset], runtime.parsedLineNumber + offset) as string;
           offset++;
         }
-        return
+        cb();
       }
     } else {
-      return
+      cb();
     }
   }
 }

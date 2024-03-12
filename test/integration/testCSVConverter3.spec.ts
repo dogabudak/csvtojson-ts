@@ -186,16 +186,15 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should omit a column", async () => {
-    const d =  await csv({
+    const d = await csv({
       colParser: {
         a: "omit"
       }
-    })
-      .fromString(
-        `a,b,c
+    }).fromString(
+      `a,b,c
   1,2,3
   fefe,5,6`
-      )
+    );
     assert.strictEqual(d[0].a, undefined);
     assert.equal(d[1].a, undefined);
   });
@@ -217,18 +216,17 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should allow ignoreEmpty with checkColumn", async () => {
-     const result = await csv({
+    const result = await csv({
       checkColumn: true,
       ignoreEmpty: true
-    })
-      .fromString(
-        `date,altitude,airtime
+    }).fromString(
+      `date,altitude,airtime
     2016-07-08,2000,23
     
     2016-07-09,3000,43`
-      )
-    assert.equal(result[0].date, '2016-07-08')
-    assert.equal(result[1].date, '2016-07-09')
+    );
+    assert.equal(result[0].date, "2016-07-08");
+    assert.equal(result[1].date, "2016-07-09");
   });
   it("should allow quotes without content", () => {
     const data = "a|^^|^b^";

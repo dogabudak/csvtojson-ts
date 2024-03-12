@@ -72,13 +72,22 @@ export class Result {
     }
   }
   endProcess() {
-    if (this.converter.parseRuntime.then && this.converter.parseRuntime.then.onfulfilled) {
+    if (
+      this.converter.parseRuntime.then &&
+      this.converter.parseRuntime.then.onfulfilled
+    ) {
       this.converter.parseRuntime.then.onfulfilled(this.finalResult);
     }
-    if (this.converter.parseRuntime.subscribe && this.converter.parseRuntime.subscribe.onCompleted) {
+    if (
+      this.converter.parseRuntime.subscribe &&
+      this.converter.parseRuntime.subscribe.onCompleted
+    ) {
       this.converter.parseRuntime.subscribe.onCompleted();
     }
-    if (this.needPushDownstream && this.converter.parseParam.downstreamFormat === "array") {
+    if (
+      this.needPushDownstream &&
+      this.converter.parseParam.downstreamFormat === "array"
+    ) {
       pushDownstream(this.converter, "]" + EOL);
     }
   }

@@ -170,7 +170,8 @@ export class ProcessorLocal extends Processor {
               this.params.includeColumns.test(headers[i])
             ) {
               this.runtime.selectedColumns.push(i);
-            } else {}
+            } else {
+            }
           } else {
             this.runtime.selectedColumns.push(i);
           }
@@ -222,12 +223,17 @@ export class ProcessorLocal extends Processor {
         } else {
           resolve(lines);
         }
-      })
+      });
     });
   }
 }
 
-function processLineHook(lines: string[], runtime: ParseRuntime, offset: number, cb: (err?: any) => void) {
+function processLineHook(
+  lines: string[],
+  runtime: ParseRuntime,
+  offset: number,
+  cb: (err?: any) => void
+) {
   if (offset >= lines.length) {
     cb();
   } else {
@@ -243,7 +249,10 @@ function processLineHook(lines: string[], runtime: ParseRuntime, offset: number,
       } else {
         lines[offset - 1] = res as string;
         while (offset < lines.length) {
-          lines[offset] = runtime.preFileLineHook(lines[offset], runtime.parsedLineNumber + offset) as string;
+          lines[offset] = runtime.preFileLineHook(
+            lines[offset],
+            runtime.parsedLineNumber + offset
+          ) as string;
           offset++;
         }
         cb();

@@ -17,6 +17,6 @@ const getEol = (data: string, param: ParseRuntime): string => {
     }
   }
   return param.eol || "\n";
-}
+};
 
-export default getEol
+export default getEol;

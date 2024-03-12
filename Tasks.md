@@ -2,6 +2,5 @@
 - README.md
 - test cov is 100 ?
 - github flow failed oluyor
-- get rid of substr 
+- get rid of substr
 - take parcellab tslint rules
-- callbacki kaldir, testi calistir, testin adi "should pre process by line in the line"

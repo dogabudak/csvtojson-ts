@@ -426,11 +426,10 @@ describe("CSV Converter", () => {
       assert.equal(eol, "\r\n");
     });
     st.on("eol", eolCallback);
-    st.then( () => {
+    st.then(() => {
       assert.equal(eolCallback.callCount, 1, "should emit eol event once");
       done();
     });
-
   });
 
   it("should emit eol event when line ending is detected as LF", function (done) {

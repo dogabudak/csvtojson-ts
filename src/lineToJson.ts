@@ -87,7 +87,7 @@ function convertRowToJson(
 const builtInConv: { [key: string]: CellParser } = {
   string: stringType,
   number: numberType,
-  "omit": function () { }
+  omit: function () {}
 };
 function getConvFunc(head: string, i: number, conv: Converter): CellParser | null {
   if (conv.parseRuntime.columnConv[i] !== undefined) {

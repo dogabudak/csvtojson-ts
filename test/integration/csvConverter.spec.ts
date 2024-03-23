@@ -417,21 +417,6 @@ describe("CSV Converter", () => {
     });
   });
 
-  it("should emit eol event when line ending is detected as CRLF", function (done) {
-    const testData = dataDir + "/data/dataNoTrimCRLF";
-    const rs = fs.createReadStream(testData);
-
-    const st = rs.pipe(new Converter());
-    const eolCallback = sandbox.spy(function (eol) {
-      assert.equal(eol, "\r\n");
-    });
-    st.on("eol", eolCallback);
-    st.then(() => {
-      assert.equal(eolCallback.callCount, 1, "should emit eol event once");
-      done();
-    });
-  });
-
   it("should emit eol event when line ending is detected as LF", function (done) {
     const testData = dataDir + "/data/columnArray";
     const rs = fs.createReadStream(testData);

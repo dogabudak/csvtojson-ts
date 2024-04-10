@@ -1,6 +1,5 @@
 - is package working(must before live)
-- README.md(must before live)
-- test cov is 100 ?
-- github flow failed oluyor(must before live) ]]]]]]]
+- README.md(must before live) ####
 - get rid of substr(must before live)
 - take parcellab tslint rules
+- readme en ustteki bannerlar sacma sapan, onlari duzelt  (must before live)

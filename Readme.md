@@ -12,7 +12,7 @@ Improved and never version of [csvtojson](https://github.com/Keyang/node-csvtojs
 [![GitHub stars](https://img.shields.io/github/stars/dogabudak/csvtojson-ts.svg)]
 [![GitHub forks](https://img.shields.io/github/forks/dogabudak/csvtojson-ts.svg)]
 
-## What's New in Version X.X.X
+## What's New in Version in this typescript version
 
 - **Comment Removal:** Removed all commented-out lines for cleaner codebase.
 - **Bluebird.js Removal:** Removed the dependency on bluebird.js, reducing the library size.
@@ -157,7 +157,7 @@ Following parameters are supported:
 - **escape**: escape character used in quoted column. Default is double quote (") according to RFC4108. Change to back slash (\\) or other chars for your own case.
 - **includeColumns**: This parameter instructs the parser to include only those columns as specified by the regular expression. Example: /(name|age)/ will parse and include columns whose header contains "name" or "age"
 - **ignoreColumns**: This parameter instructs the parser to ignore columns as specified by the regular expression. Example: /(name|age)/ will ignore columns whose header contains "name" or "age"
-- **colParser**: Allows override parsing logic for a specific column. It accepts a JSON object with fields like: `headName: <String | Function | ColParser>` . e.g. {field1:'number'} will use built-in number parser to convert value of the `field1` column to number. For more information See [details below](#column-parser)
+- **colParser**: Allows override parsing logic for a specific column. It accepts a JSON object with fields like: `headName: <String | Function | ColParser>` . e.g. {field1:'number'} will use built-in number parser to convert value of the `field1` column to number.
 - **alwaysSplitAtEOL**: Always interpret each line (as defined by `eol` like `\n`) as a row. This will prevent `eol` characters from being used within a row (even inside a quoted field). Default is false. Change to true if you are confident no inline line breaks (like line break in a cell which has multi line text).
 - **nullObject**: How to parse if a csv cell contains "null". Default false will keep "null" as string. Change to true if a null object is needed.
 - **downstreamFormat**: Option to set what JSON array format is needed by downstream. "line" is also called ndjson format. This format will write lines of JSON (without square brackets and commas) to downstream. "array" will write complete JSON array string to downstream (suitable for file writable stream etc). Default "line"

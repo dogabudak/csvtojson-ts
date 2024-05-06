@@ -1,2 +1,0 @@
-- is package working(must before live)
-- readme en ustteki bannerlar sacma sapan, onlari duzelt  (must before live)

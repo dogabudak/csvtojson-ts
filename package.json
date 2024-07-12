@@ -42,7 +42,6 @@
     "ts-node": "^10.9",
     "tsconfig-paths": "^4.1",
     "tsd": "^0.25.0",
-    "typedoc": "^0.24.8",
     "typescript": "^4.9"
   },
   "scripts": {
@@ -60,8 +59,8 @@
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
-    "strip-bom": "4.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "strip-bom": "4.0"
   },
   "mocha": {
     "ignore": [

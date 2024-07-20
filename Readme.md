@@ -2,8 +2,6 @@
 
 Improved and never version of [csvtojson](https://github.com/Keyang/node-csvtojson/) with typescript support.
 
-[![Build Status](https://travis-ci.org/dogabudak/csvtojson-ts.svg?branch=master)](https://travis-ci.org/dogabudak/csvtojson-ts)
-[![Coverage Status](https://coveralls.io/repos/github/dogabudak/csvtojson-ts/badge.svg?branch=master)](https://coveralls.io/github/dogabudak/csvtojson-ts?branch=master)
 [![npm version](https://badge.fury.io/js/csvtojson-ts.svg)](https://badge.fury.io/js/csvtojson-ts)
 [![npm](https://img.shields.io/npm/dt/csvtojson-ts.svg)](https://www.npmjs.com/package/csvtojson-ts)
 [![npm](https://img.shields.io/npm/dm/csvtojson-ts.svg)](https://www.npmjs.com/package/csvtojson-ts)

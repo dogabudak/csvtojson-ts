@@ -1,2 +1,1 @@
-import { Converter } from "./Converter";
-export default Converter;
+export { Converter }from "./Converter";

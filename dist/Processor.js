@@ -1,4 +1,7 @@
-export class Processor {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Processor = void 0;
+class Processor {
     converter;
     params;
     runtime;
@@ -8,4 +11,5 @@ export class Processor {
         this.runtime = converter.parseRuntime;
     }
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUHJvY2Vzc29yLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vc3JjL1Byb2Nlc3Nvci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFLQSxNQUFNLE9BQWdCLFNBQVM7SUFHUDtJQUZaLE1BQU0sQ0FBZ0I7SUFDdEIsT0FBTyxDQUFlO0lBQ2hDLFlBQXNCLFNBQW9CO1FBQXBCLGNBQVMsR0FBVCxTQUFTLENBQVc7UUFDeEMsSUFBSSxDQUFDLE1BQU0sR0FBRyxTQUFTLENBQUMsVUFBVSxDQUFDO1FBQ25DLElBQUksQ0FBQyxPQUFPLEdBQUcsU0FBUyxDQUFDLFlBQVksQ0FBQztJQUN4QyxDQUFDO0NBT0YifQ==
+exports.Processor = Processor;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUHJvY2Vzc29yLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vc3JjL1Byb2Nlc3Nvci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFLQSxNQUFzQixTQUFTO0lBR1A7SUFGWixNQUFNLENBQWdCO0lBQ3RCLE9BQU8sQ0FBZTtJQUNoQyxZQUFzQixTQUFvQjtRQUFwQixjQUFTLEdBQVQsU0FBUyxDQUFXO1FBQ3hDLElBQUksQ0FBQyxNQUFNLEdBQUcsU0FBUyxDQUFDLFVBQVUsQ0FBQztRQUNuQyxJQUFJLENBQUMsT0FBTyxHQUFHLFNBQVMsQ0FBQyxZQUFZLENBQUM7SUFDeEMsQ0FBQztDQU9GO0FBYkQsOEJBYUMifQ==

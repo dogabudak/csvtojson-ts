@@ -8,7 +8,7 @@
     "moduleResolution": "node",
     "isolatedModules": false,
     "esModuleInterop": true,
-    "declaration": false,
+    "declaration": true,
     "emitDeclarationOnly": false,
     "noEmit": false,
     "outDir": "dist",

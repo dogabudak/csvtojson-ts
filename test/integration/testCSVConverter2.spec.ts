@@ -1,5 +1,4 @@
-import { Converter } from "../../src/Converter";
-import csv from "../../src";
+import { Converter } from "../../src";
 import sinon, { SinonSandbox } from "sinon";
 import assert from "assert";
 import fs from "fs";
@@ -319,7 +318,7 @@ describe("testCSVConverter2", function () {
   it("should parse from stream", function (done) {
     const testData = dataDir + "/data/complexJSONCSV";
     const rs = fs.createReadStream(testData);
-    csv()
+    new Converter()
       .fromStream(rs)
       .then(function (res) {
         assert(res);
@@ -331,7 +330,7 @@ describe("testCSVConverter2", function () {
     const testData = dataDir + "/data/complexJSONCSV";
     const rs = fs.createReadStream(testData);
     let numOfRow = 0;
-    csv({ output: "csv" })
+    new Converter({ output: "csv" })
       .fromStream(rs)
       .subscribe(function (row, idx) {
         numOfRow++;
@@ -350,7 +349,7 @@ describe("testCSVConverter2", function () {
   it("should transform with subscribe function", function (done) {
     const testData = dataDir + "/data/complexJSONCSV";
     const rs = fs.createReadStream(testData);
-    csv()
+    new Converter()
       .fromStream(rs)
       .subscribe(function (json, idx) {
         json.a = "test";
@@ -423,7 +422,7 @@ describe("testCSVConverter2", function () {
     const testData = dataDir + "/data/longHeader";
     const rs = fs.createReadStream(testData, { highWaterMark: 100 });
     let numOfJson = 0;
-    csv({}, { highWaterMark: 100 })
+    new Converter({}, { highWaterMark: 100 })
       .fromStream(rs)
       .subscribe(function (res, idx) {
         numOfJson++;
@@ -438,7 +437,7 @@ describe("testCSVConverter2", function () {
 
   it("should parse #139", function (done) {
     const rs = fs.createReadStream(dataDir + "/data/data#139");
-    csv()
+    new Converter()
       .fromStream(rs)
       .then(function (res) {
         assert.equal(res[1].field3, "9001009395 9001009990");
@@ -449,7 +448,7 @@ describe("testCSVConverter2", function () {
   it("should ignore column", function (done) {
     const rs = fs.createReadStream(dataDir + "/data/dataWithQoutes");
     let headerEmitted = false;
-    csv({
+    new Converter({
       ignoreColumns: /TIMESTAMP/
     })
       .fromStream(rs)
@@ -475,7 +474,7 @@ describe("testCSVConverter2", function () {
     "John , space", 1234
     "Mr. , space", 4321
     `;
-    return csv()
+    return new Converter()
       .fromString(str)
       .then((data) => {
         assert.equal(data[0].Name, "John , space");
@@ -485,7 +484,7 @@ describe("testCSVConverter2", function () {
 
   it("should include column", function (done) {
     const rs = fs.createReadStream(dataDir + "/data/dataWithQoutes");
-    csv({
+    new Converter({
       includeColumns: /TIMESTAMP/
     })
       .fromStream(rs)
@@ -513,7 +512,7 @@ describe("testCSVConverter2", function () {
 
     const expected = headers;
 
-    csv({
+    new Converter({
       headers: headers,
       includeColumns: /(first|second|third)/
     })
@@ -539,7 +538,7 @@ describe("testCSVConverter2", function () {
     const rs = fs.createReadStream(dataDir + "/data/complexJSONCSV");
     const includeColumns = ["fieldA.title", "description"];
 
-    return csv({
+    return new Converter({
       includeColumns: /(fieldA\.title|description)/
     })
       .fromStream(rs)
@@ -555,7 +554,7 @@ describe("testCSVConverter2", function () {
 
   it("should only call done once", function (done) {
     let counter = 0;
-    csv()
+    new Converter()
       .fromString('"a","b", "c""')
       .on("done", function () {
         counter++;

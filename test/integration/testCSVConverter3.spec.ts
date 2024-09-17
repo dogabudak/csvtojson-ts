@@ -1,4 +1,4 @@
-import csv from "../../src";
+import {Converter} from "../../src";
 import assert from "assert";
 import sinon, { SinonSandbox } from "sinon";
 import fs from "fs";
@@ -19,7 +19,7 @@ describe("testCSVConverter3", function () {
   it("should parse large csv file with UTF-8 without spliting characters", function (done) {
     const testData = dir + "/data/large-utf8.csv";
     const rs = fs.createReadStream(testData);
-    const csvConverter = csv({});
+    const csvConverter = new Converter({});
     let count = 0;
     csvConverter.preRawData(function (csvRawData) {
       assert(csvRawData.charCodeAt(0) < 2000);
@@ -35,7 +35,7 @@ describe("testCSVConverter3", function () {
     rs.pipe(csvConverter);
   });
   it("should setup customise type convert function", function (done) {
-    csv({
+    new Converter({
       checkType: true,
       colParser: {
         column1: "string",
@@ -60,7 +60,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should accept pipe as quote", function (done) {
-    csv({
+    new Converter({
       quote: "|",
       output: "csv"
     })
@@ -76,7 +76,7 @@ describe("testCSVConverter3", function () {
     const cb = sandbox.spy((err: () => void) => {
       assert(err.toString().indexOf("File does not exist") > -1);
     });
-    return csv()
+    return new Converter()
       .fromFile("somefile")
       .on("error", cb)
       .then(
@@ -89,7 +89,7 @@ describe("testCSVConverter3", function () {
       );
   });
   it("should include column that is both included and excluded", () => {
-    return csv({
+    return new Converter({
       includeColumns: /b/,
       ignoreColumns: /a|b/
     })
@@ -104,7 +104,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should allow async preLine hook", () => {
-    return csv()
+    return new Converter()
       .preFileLine((line) => {
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -123,7 +123,7 @@ describe("testCSVConverter3", function () {
   });
 
   it("should allow async subscribe function", () => {
-    return csv({ trim: true })
+    return new Converter({ trim: true })
       .fromString(
         `a,b,c
     1,2,3
@@ -143,7 +143,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should propagate value to next then", () => {
-    return csv({ trim: true })
+    return new Converter({ trim: true })
       .fromString(
         `a,b,c
   1,2,3
@@ -156,7 +156,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should propagate error to next then", () => {
-    return csv({ trim: true })
+    return new Converter({ trim: true })
       .fromFile(dir + "/data/dataWithUnclosedQuotes")
       .then(undefined, undefined)
       .then(
@@ -170,7 +170,7 @@ describe("testCSVConverter3", function () {
       );
   });
   it("should fallback to text is number can not be parsed", () => {
-    return csv({
+    return new Converter({
       colParser: {
         a: "number"
       }
@@ -186,7 +186,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should omit a column", async () => {
-    const d = await csv({
+    const d = await new Converter({
       colParser: {
         a: "omit"
       }
@@ -199,7 +199,7 @@ describe("testCSVConverter3", function () {
     assert.equal(d[1].a, undefined);
   });
   it("could turn off quote and should trim even quote is turned off", () => {
-    return csv({
+    return new Converter({
       quote: "off",
       trim: true
     })
@@ -216,7 +216,7 @@ describe("testCSVConverter3", function () {
       });
   });
   it("should allow ignoreEmpty with checkColumn", async () => {
-    const result = await csv({
+    const result = await new Converter({
       checkColumn: true,
       ignoreEmpty: true
     }).fromString(
@@ -230,7 +230,7 @@ describe("testCSVConverter3", function () {
   });
   it("should allow quotes without content", () => {
     const data = "a|^^|^b^";
-    return csv({
+    return new Converter({
       delimiter: "|",
       quote: "^",
       noheader: true
@@ -242,7 +242,7 @@ describe("testCSVConverter3", function () {
   });
   it("should parse header with quotes correctly", function () {
     const testData = dir + "/data/csvWithUnclosedHeader";
-    return csv({
+    return new Converter({
       headers: [
         "exam_date",
         "sample_no",
@@ -313,7 +313,7 @@ describe("testCSVConverter3", function () {
 4,5,6`;
     let hasLeftBracket = false;
     let hasRightBracket = false;
-    csv({
+    new Converter({
       downstreamFormat: "array"
     })
       .fromString(data)
@@ -337,7 +337,7 @@ describe("testCSVConverter3", function () {
     const data = `a,b,c
 1,2,3
 4,5,6`;
-    csv({
+    new Converter({
       downstreamFormat: "line"
     })
       .fromString(data)
@@ -355,7 +355,7 @@ describe("testCSVConverter3", function () {
     const data = `a,b,c
 null,2,3
 4,5,6`;
-    return csv({
+    return new Converter({
       nullObject: true
     })
       .fromString(data)
@@ -367,7 +367,7 @@ null,2,3
     const data = `a..,b,c
 1,2,3
 4,5,6`;
-    return csv({})
+    return new Converter({})
       .fromString(data)
       .then((d) => {
         assert.equal(d[0]["a.."], 1);

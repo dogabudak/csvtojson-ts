@@ -295,7 +295,7 @@ describe("CSV Converter", () => {
   it("be able to ignore empty columns", function (done) {
     const testData = dataDir + "/data/dataIgnoreEmpty";
     const rs = fs.createReadStream(testData);
-    const st = rs.pipe(csv({ ignoreEmpty: true }));
+    const st = rs.pipe(new Converter({ ignoreEmpty: true }));
     st.then(function (res) {
       const j = res[0];
       assert(res.length === 3);

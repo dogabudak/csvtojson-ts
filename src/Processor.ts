@@ -14,7 +14,7 @@ export abstract class Processor {
     chunk: Buffer,
     finalChunk?: boolean
   ): Promise<ProcessLineResult[]>;
-  abstract destroy(): Promise<void>;
+  abstract destroy(): void;
   abstract flush(): Promise<ProcessLineResult[]>;
 }
 export type ProcessLineResult = string | string[] | JSONResult;

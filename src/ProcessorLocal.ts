@@ -9,24 +9,21 @@ import { ParseRuntime } from "./ParseRuntime";
 import CSVError from "./CSVError";
 
 export class ProcessorLocal extends Processor {
-  flush(): Promise<ProcessLineResult[]> {
-    if (this.runtime.csvLineBuffer && this.runtime.csvLineBuffer.length > 0) {
+  async flush(): Promise<ProcessLineResult[]> {
+    if (this.runtime.csvLineBuffer && (this.runtime.csvLineBuffer as Buffer).length > 0) {
       const buf = this.runtime.csvLineBuffer;
       this.runtime.csvLineBuffer = undefined;
-      return this.process(buf, true).then((res) => {
-        if (this.runtime.csvLineBuffer && this.runtime.csvLineBuffer.length > 0) {
-          return Promise.reject(
-            CSVError.unclosed_quote(
-              this.runtime.parsedLineNumber,
-              this.runtime.csvLineBuffer.toString()
-            )
-          );
-        } else {
-          return Promise.resolve(res);
-        }
-      });
+      const res = await this.process(buf, true);
+      if (this.runtime.csvLineBuffer && (this.runtime.csvLineBuffer as Buffer).length > 0) {
+        throw CSVError.unclosed_quote(
+          this.runtime.parsedLineNumber,
+          (this.runtime.csvLineBuffer as Buffer).toString()
+        );
+      } else {
+        return res;
+      }
     } else {
-      return Promise.resolve([]);
+      return [];
     }
   }
   destroy(): Promise<void> {

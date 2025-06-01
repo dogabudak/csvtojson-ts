@@ -63,7 +63,7 @@ export function mergeParams(params?: Partial<CSVParseParam> | any): CSVParsePara
   for (const key in params) {
     if (params[key]) {
       if (Array.isArray(params[key])) {
-        defaultParam[key] = [].concat(params[key]);
+        defaultParam[key] = ([] as any[]).concat(params[key]);
       } else {
         defaultParam[key] = params[key];
       }

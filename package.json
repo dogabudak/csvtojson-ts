@@ -18,6 +18,7 @@
     "@types/eslint": "^8.4",
     "@types/expect": "^24.3",
     "@types/lodash": "^4.14.202",
+    "@types/lodash.set": "^4.3.9",
     "@types/mocha": "^9.1",
     "@types/node": "^20.10.0",
     "@types/sinon": "^10.0.13",
@@ -60,7 +61,7 @@
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
+    "lodash.set": "^4.3.2",
     "strip-bom": "4.0"
   },
   "mocha": {

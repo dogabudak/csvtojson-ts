@@ -113,7 +113,6 @@ function processLineByLine(
         res.then(function () {
           processRecursive(
             lines,
-            hook,
             conv,
             offset,
             needPushDownstream,
@@ -149,7 +148,6 @@ function processLineByLine(
 
 export function processRecursive(
   lines: ProcessLineResult[],
-  hook: (data: any, lineNumber: number) => void | PromiseLike<void>,
   conv: Converter,
   offset: number,
   needPushDownstream: boolean,

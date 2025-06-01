@@ -13,4 +13,4 @@ export declare class Result {
     processError(err: CSVError): void;
     endProcess(): void;
 }
-export declare function processRecursive(lines: ProcessLineResult[], hook: (data: any, lineNumber: number) => void | PromiseLike<void>, conv: Converter, offset: number, needPushDownstream: boolean, cb: (err?: any) => void, res: ProcessLineResult): void;
+export declare function processRecursive(lines: ProcessLineResult[], conv: Converter, offset: number, needPushDownstream: boolean, cb: (err?: any) => void, res: ProcessLineResult): void;

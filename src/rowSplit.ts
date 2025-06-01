@@ -4,6 +4,7 @@ import getEol from "./getEol";
 import { filterArray } from "./util";
 
 const defaultDelimiters = [",", "|", "\t", ";", ":"];
+
 export class RowSplit {
   private quote: string;
   private trim: boolean;
@@ -11,48 +12,49 @@ export class RowSplit {
   private cachedRegExp: { [key: string]: RegExp } = {};
   private delimiterEmitted = false;
   private _needEmitDelimiter?: boolean = undefined;
+
   private get needEmitDelimiter() {
     if (this._needEmitDelimiter === undefined) {
       this._needEmitDelimiter = this.conv.listeners("delimiter").length > 0;
     }
     return this._needEmitDelimiter;
   }
+
   constructor(private conv: Converter) {
     this.quote = conv.parseParam.quote;
     this.trim = conv.parseParam.trim;
     this.escape = conv.parseParam.escape;
   }
+
   parse(fileline: Fileline): RowSplitResult {
-    if (
-      fileline.length === 0 ||
-      (this.conv.parseParam.ignoreEmpty && fileline.trim().length === 0)
-    ) {
+    if (fileline.length === 0 || (this.conv.parseParam.ignoreEmpty && fileline.trim().length === 0)) {
       return { cells: [], closed: true };
     }
-    const quote = this.quote;
-    const trim = this.trim;
-    if (
-      this.conv.parseRuntime.delimiter instanceof Array ||
-      this.conv.parseRuntime.delimiter.toLowerCase() === "auto"
-    ) {
+
+    if (Array.isArray(this.conv.parseRuntime.delimiter) || this.conv.parseRuntime.delimiter.toLowerCase() === "auto") {
       this.conv.parseRuntime.delimiter = this.getDelimiter(fileline);
     }
+
     if (this.needEmitDelimiter && !this.delimiterEmitted) {
       this.conv.emit("delimiter", this.conv.parseRuntime.delimiter);
       this.delimiterEmitted = true;
     }
-    const delimiter = this.conv.parseRuntime.delimiter;
+
+    const delimiter = Array.isArray(this.conv.parseRuntime.delimiter)
+      ? this.conv.parseRuntime.delimiter[0]
+      : this.conv.parseRuntime.delimiter;
+
     const rowArr = fileline.split(delimiter);
-    if (quote === "off") {
-      if (trim) {
+    if (this.quote === "off") {
+      if (this.trim) {
         for (let i = 0; i < rowArr.length; i++) {
           rowArr[i] = rowArr[i].trim();
         }
       }
       return { cells: rowArr, closed: true };
-    } else {
-      return this.toCSVRow(rowArr, trim, quote, delimiter);
     }
+
+    return this.toCSVRow(rowArr, this.trim, this.quote, delimiter);
   }
   private toCSVRow(
     rowArr: string[],

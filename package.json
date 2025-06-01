@@ -1,6 +1,6 @@
 {
   "name": "csvtojson-ts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "New and latest version of csv-to-json",
   "author": "dogabudak@gmail.com",
   "exports": "./dist/index.js",

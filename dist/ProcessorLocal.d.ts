@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Processor, ProcessLineResult } from "./Processor";
 export declare class ProcessorLocal extends Processor {
     flush(): Promise<ProcessLineResult[]>;
